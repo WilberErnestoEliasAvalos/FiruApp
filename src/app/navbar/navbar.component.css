@@ -1,0 +1,11 @@
+.bg-color { background-color: #D2B48C; }
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Color más claro al pasar el mouse */
+  }
+
+.navbar-nav .nav-link {
+  border-radius: 10px; /* Ajusta el valor según tu preferencia */
+}
+.navbar {
+  border-bottom: 0px solid #d0ffc4; /* Agrega un borde inferior de 2px con color #F5F5DC */
+}

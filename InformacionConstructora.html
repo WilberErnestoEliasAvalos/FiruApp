@@ -1,0 +1,26 @@
+Paleta de colores en la página:
+
+Café oscuro: <span style="color: #8B4513">#8B4513</span>
+Café claro: <span style="color: #D2B48C">#D2B48C</span>
+Beige: <span style="color: #F5F5DC">#F5F5DC</span>
+Blanco hueso: <span style="color: #FFE4C4">#FFE4C4</span>
+
+Para la galería de publicaciones:
+Firebase:
+
+Cloud Firestore: Ideal para este caso, ya que permite cargar datos de forma dinámica a medida que el usuario se desplaza (paginación infinita).
+Estructura de datos:
+Colección "publicaciones":
+Documentos para cada publicación, con campos como título, descripción, imágenes, etc.
+Ordenar por fecha de publicación o relevancia.
+Angular:
+
+Infinite Scroll: Implementa la paginación infinita para cargar nuevas publicaciones a medida que el usuario se desplaza.
+Virtual Scroll: Mejora el rendimiento al renderizar solo las publicaciones visibles en la pantalla.
+Filtros: Implementar filtros en el componente de la galería para que el usuario pueda filtrar por categorías, precio, etc.
+Búsqueda: Implementar un componente de búsqueda que use la API de Cloud Firestore para buscar publicaciones por palabras clave.
+<!-- #endregion -->
+Tip:
+1. No implementes nunca el hosting primero porque nos apendejamos con el authentication
+2. El proyecto en Firebase se llama FiruPets, y la App se llama FiruApp siempre en Firebase, dado que el proyecto tiene dentro la o las apps.
+3.

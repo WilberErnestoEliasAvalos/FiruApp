@@ -1,0 +1,30 @@
+.parallax {
+    height: 70vh;
+    background-attachment: fixed;
+    background-position: center; /* Alinear la imagen al centro verticalmente */
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajustar el tamaño de la imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-image 0.7s ease-in;
+  }
+  
+  .welcome-text {
+    background-color: #D2B48C;
+    height: 70vh; /* Igualar altura a parallax */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .welcome-text h1 {
+    font-size: 3rem; /* Tamaño de fuente ajustado */
+  }
+  
+  .text-background {
+    background-color: #A34A21;
+    padding: 2px 10px;
+    color: white;
+  }
+  

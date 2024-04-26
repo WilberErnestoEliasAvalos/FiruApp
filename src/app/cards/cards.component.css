@@ -1,0 +1,57 @@
+.card {
+  width: 280.25px;
+  height: 387.22px;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  overflow: hidden; /* Evita que la imagen se desborde de la card */
+  padding: 4px;
+  background-color: #8b45135b;
+  border-color: rgba(0, 0, 0, 0);
+  text-align: left;
+}
+
+.card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Escalar y recortar la imagen para que llene la card */
+  aspect-ratio: 1/1;
+}
+
+.card-body {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  padding: 12px 0; /* Ajusta el relleno según sea necesario */
+  margin-top: -4px; /* Ajusta los márgenes según sea necesario */
+  display: flex;
+  flex-direction: column;
+}
+
+h3, h4, h5 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Número de líneas a mostrar */
+  -webkit-box-orient: vertical;
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: normal;
+  -webkit-line-clamp: 2; /* Número de líneas a mostrar */
+}
+
+h5 {
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.btn {
+  margin: 25px;
+  padding: 0px;
+}

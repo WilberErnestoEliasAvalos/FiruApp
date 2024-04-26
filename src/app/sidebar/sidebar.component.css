@@ -1,0 +1,64 @@
+.sidebar {
+    background-color: #D2B48C;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    width: 360px; /* Adjust width as needed */
+    height: 100vh;
+    margin-bottom: 20px; /* Optional margin for spacing */
+    font-family: inherit;
+    position: ;
+  }
+  
+  .sidebar form {
+    margin-bottom: 20px; /* Add some space after the search bar */
+  }
+  
+  .sidebar .input-group {
+    display: flex;
+  }
+  
+  .sidebar .form-control {
+    border: 1px solid #000000;
+    border-radius: 40px;
+    padding: 10px;
+  }
+  
+  .sidebar .btn-outline-primary {
+    background-color: #fff;
+    border-color: #000000;
+    color: #8B4513;
+    border-radius: 40px;
+    padding: 10px; /* Adjust padding for better alignment */
+  }
+  
+  .sidebar h6 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px; /* Space between heading and filter options */
+  }
+  
+  .sidebar .mb-3 {
+    margin-bottom: 15px; /* Consistent spacing for filters */
+  }
+  
+  .sidebar .form-select {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .sidebar .btn-primary {
+    background-color: #8B4513;
+    border-color: #8B4513;
+    color: #fff;
+    border-radius: 4px;
+    padding: 10px 15px;
+    width: 100%; /* Make the button fill the width */
+  }
+  h1{
+    font-size: 24px;
+    font-weight: bold;
+    padding: 8px;
+  }

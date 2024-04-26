@@ -1,0 +1,8 @@
+<div class="gallery">
+  <app-sidebar></app-sidebar>
+  <div class="cards-container">
+    <ng-container *ngFor="let publicacion of publicaciones">
+      <app-cards [publicacion]="publicacion"></app-cards>
+    </ng-container>
+  </div>
+</div>

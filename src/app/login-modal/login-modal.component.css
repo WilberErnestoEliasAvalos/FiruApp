@@ -1,0 +1,35 @@
+.custom-input {
+    position: relative;
+  }
+  
+  .custom-input input {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 1;
+    color: #000000; /* Color de texto */
+    padding: 1rem;
+    transition: border-color 0.2s;
+  }
+  
+  .custom-input input:focus {
+    border-color: #fff;
+    background-color: white;
+
+  }
+  
+  .custom-input label {
+    position: absolute;
+    left: 1rem;
+    color: #ffffff; /* Color de texto */
+    font-size: 1rem;
+    transition: top 0.2s, left 0.2s, font-size 0.2s;
+  }
+  
+  .custom-input input:focus + label,
+  .custom-input input:not(:placeholder-shown) + label {
+    top: 0;
+    left: 0.75rem;
+    font-size: 0.80rem;
+    color: #000000; /* Color de texto cuando se selecciona */
+  }
+  

@@ -14,6 +14,7 @@ export class CardsComponent {
   constructor(private modalService: ModalService) {}
 
   abrirModal() {
+    console.log("Abrir modal");
     this.modalService.openModal(this.publicacion);
-  }
+  }  
 }

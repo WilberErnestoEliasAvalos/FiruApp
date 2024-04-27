@@ -19,9 +19,10 @@ export class ModalService {
   return this.publicacionToShow.asObservable();
   }
   
-  openModal(publicacion: Publicacion): void {
-  this.modalState.next(true);
-  this.publicacionToShow.next(publicacion);
+  openModal(publicacion: Publicacion) {
+    console.log("Modal abierto");
+    this.modalState.next(true);
+    this.publicacionToShow.next(publicacion);
   }
   
   closeModal(): void {

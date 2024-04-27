@@ -12,25 +12,23 @@ export class ModalComponent implements OnInit, OnDestroy {
   showModal: boolean = false;
   publicacion: Publicacion | null = null;
   private modalSubscription!: Subscription;
+  private publicacionSubscription!: Subscription;
 
   constructor(private modalService: ModalService) { }
 
   ngOnInit(): void {
     this.modalSubscription = this.modalService.getModalState().subscribe((state: boolean) => {
-      this.showModal = !!state;
+      this.showModal = state;
     });
 
-    this.modalSubscription = this.modalService.getPublicacionToShow().subscribe((publicacion: Publicacion | boolean | null) => {
-      if (typeof publicacion === 'boolean') {
-        this.publicacion = null;
-      } else {
-        this.publicacion = publicacion;
-      }
+    this.publicacionSubscription = this.modalService.getPublicacionToShow().subscribe((publicacion: Publicacion | null) => {
+      this.publicacion = publicacion;
     });
   }
 
   ngOnDestroy(): void {
     this.modalSubscription.unsubscribe();
+    this.publicacionSubscription.unsubscribe();
   }
 
   closeModal(): void {

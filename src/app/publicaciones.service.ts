@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, DocumentData } from '@angular/fire/firestore';
+import { Publicacion } from './publicacion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class PublicacionesService {
   // Método para obtener todas las publicaciones
   async getPublicaciones() {
     const querySnapshot = await getDocs(collection(this.firestore, 'publicaciones'));
-    return querySnapshot.docs.map(doc => doc.data()) as DocumentData[];
+    return querySnapshot.docs.map(doc => doc.data()) as Publicacion[];
   }
 
   // Método para obtener una publicación por su ID

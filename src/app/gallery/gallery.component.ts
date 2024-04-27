@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PublicacionesService } from '../publicaciones.service'; // Importa tu servicio para acceder a Firestore
-import { DocumentData } from 'firebase/firestore';
+import { Publicacion } from '../publicacion.model'; // Importa el modelo de publicación si lo tienes
 
 @Component({
   selector: 'app-gallery',
@@ -8,7 +8,7 @@ import { DocumentData } from 'firebase/firestore';
   styleUrls: ['./gallery.component.css'] // Usa styleUrls en lugar de styleUrl para cargar estilos desde un archivo externo
 })
 export class GalleryComponent implements OnInit {
-  publicaciones: DocumentData[] = []; // Cambia el tipo de datos si tienes un modelo de publicación
+  publicaciones: Publicacion[] = []; // Cambia el tipo de datos si tienes un modelo de publicación
 
   constructor(private publicacionesService: PublicacionesService) { }
 

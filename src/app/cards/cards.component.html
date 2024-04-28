@@ -1,10 +1,8 @@
-<a class="btn" (click)="abrirModal()">
-  <div class="card">
-    <img [src]="publicacion.fotos[0]" class="card-img-top" alt="...">
-    <div class="card-body">
-      <span><h3 class="card-text">{{ publicacion.nombre }}</h3></span>
-      <span><h4 class="card-text">{{ publicacion.descripcion }}</h4></span>
-      <span><h5 class="card-text">Raza: {{ publicacion.raza }}</h5></span>
-    </div>
+<div class="card pointer" (click)="onCardClick()">
+  <img [src]="publicacion.fotos[0]" class="card-img-top" alt="...">
+  <div class="card-body">
+    <span><h3 class="card-text">{{ publicacion.nombre }}</h3></span>
+    <span><h4 class="card-text">{{ publicacion.descripcion }}</h4></span>
+    <span><h5 class="card-text">Raza: {{ publicacion.raza }}</h5></span>
   </div>
-</a>
+</div>

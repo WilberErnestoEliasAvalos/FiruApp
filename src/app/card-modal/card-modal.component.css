@@ -1,0 +1,44 @@
+.carousel-container {
+  width: 75%;
+  max-height: 680px;
+  min-height: 680px;
+}
+.carousel-item img {
+  max-height: 100%;
+  width: auto;
+}
+.modal-content {
+  width: 25%;
+  padding: 20px;
+}
+
+.modal-description {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.modal-content , .modal-description, .modal-body {
+  background: #D2B48C;
+}
+.close-button {
+  position: absolute;
+  z-index: 9999;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-button span {
+  color: white;
+  font-size: 30px;
+}
+.carousel-control-next , .carousel-control-prev:hover{
+  background-color: rgba(0, 0, 0, 0.10);
+}

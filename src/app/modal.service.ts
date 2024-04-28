@@ -1,32 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Publicacion } from './publicacion.model';
+import { CardModalComponent } from './card-modal/card-modal.component'; // Ajusta la ruta según la ubicación de tu CardModalComponent
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-  private modalState: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private publicacionToShow: BehaviorSubject<boolean | Publicacion | null> = new BehaviorSubject<boolean | Publicacion | null>(null);
 
-  constructor() {}
-  
-  getModalState(): Observable<boolean> {
-  return this.modalState.asObservable();
+  constructor(private modalService: NgbModal) { }
+
+  openModal(publicacion: Publicacion): void {
+    const modalRef = this.modalService.open(CardModalComponent, { size: 'xl' });
+    modalRef.componentInstance.publicacion = publicacion;
   }
-  
-  getPublicacionToShow(): Observable<boolean | Publicacion | null> {
-  return this.publicacionToShow.asObservable();
-  }
-  
-  openModal(publicacion: Publicacion) {
-    console.log("Modal abierto");
-    this.modalState.next(true);
-    this.publicacionToShow.next(publicacion);
-  }
-  
+
   closeModal(): void {
-  this.modalState.next(false);
-  this.publicacionToShow.next(null);
+    this.modalService.dismissAll();
   }
-  }
+}

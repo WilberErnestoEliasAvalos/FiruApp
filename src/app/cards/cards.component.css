@@ -9,6 +9,7 @@
   background-color: #8b45135b;
   border-color: rgba(0, 0, 0, 0);
   text-align: left;
+  margin: 25px;
 }
 
 .card img {
@@ -50,8 +51,6 @@ h5 {
   font-size: 13px;
   font-weight: normal;
 }
-
-.btn {
-  margin: 25px;
-  padding: 0px;
+.pointer {
+  cursor: pointer;
 }

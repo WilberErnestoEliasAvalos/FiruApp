@@ -12,7 +12,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { CardsComponent } from './cards/cards.component';
-import { ModalComponent } from './modal/modal.component';
+import { CardModalComponent } from './card-modal/card-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { ModalComponent } from './modal/modal.component';
     SidebarComponent,
     WelcomeComponent,
     CardsComponent,
-    ModalComponent
+    CardModalComponent
   ],
   imports: [
     BrowserModule,

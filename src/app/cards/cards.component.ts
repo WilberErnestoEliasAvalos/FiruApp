@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Publicacion } from '../publicacion.model';
-import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-cards',
@@ -8,13 +7,14 @@ import { ModalService } from '../modal.service';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent {
-
   @Input() publicacion!: Publicacion;
+  @Output() cardClicked: EventEmitter <Publicacion> = new EventEmitter <Publicacion>();
 
-  constructor(private modalService: ModalService) {}
+  constructor() {
+    this.cardClicked = new EventEmitter <Publicacion>();
+  }
 
-  abrirModal() {
-    console.log("Abrir modal");
-    this.modalService.openModal(this.publicacion);
-  }  
+  onCardClick() {
+    this.cardClicked.emit(this.publicacion);
+  }
 }

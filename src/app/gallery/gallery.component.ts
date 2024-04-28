@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { PublicacionesService } from '../publicaciones.service'; // Importa tu servicio para acceder a Firestore
-import { Publicacion } from '../publicacion.model'; // Importa el modelo de publicación si lo tienes
+import { PublicacionesService } from '../publicaciones.service';
+import { Publicacion } from '../publicacion.model';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.css'] // Usa styleUrls en lugar de styleUrl para cargar estilos desde un archivo externo
+  styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
-  publicaciones: Publicacion[] = []; // Cambia el tipo de datos si tienes un modelo de publicación
+  publicaciones: Publicacion[] = [];
 
-  constructor(private publicacionesService: PublicacionesService) { }
+  constructor(private publicacionesService: PublicacionesService, private modalService: ModalService) { }
 
   async ngOnInit(): Promise<void> {
     try {
@@ -18,5 +19,9 @@ export class GalleryComponent implements OnInit {
     } catch (error) {
       console.error('Error al obtener las publicaciones:', error);
     }
+  }
+
+  onCardClicked(publicacion: Publicacion): void {
+    this.modalService.openModal(publicacion);
   }
 }

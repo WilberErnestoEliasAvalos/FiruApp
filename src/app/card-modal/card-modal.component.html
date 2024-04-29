@@ -1,35 +1,33 @@
 <button type="button" class="close close-button" aria-label="Close" (click)="activeModal.dismiss()">
   <span aria-hidden="true">&times;</span>
-</button>  
-<div class="modal-body"> 
-  <div class="d-flex">
-    <div class="carousel-container">
-      <div *ngIf="publicacion && publicacion.fotos && publicacion.fotos.length > 0">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div *ngFor="let foto of publicacion.fotos; let i = index" class="carousel-item" [class.active]="i === currentIndex">
-              <img class="d-block w-100" [src]="foto" alt="Slide {{i + 1}}">
+</button>
+<table>
+  <tr>
+    <td class="td1">
+        <div *ngIf="publicacion && publicacion.fotos && publicacion.fotos.length > 0">
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div *ngFor="let foto of publicacion.fotos; let i = index" class="carousel-item" [class.active]="i === currentIndex">
+                <img class="img" [src]="foto" alt="Slide {{i + 1}}">
+              </div>
             </div>
+            <button class="carousel-control-prev" type="button" (click)="prevSlide()">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" (click)="nextSlide()">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </button>
           </div>
-          <button class="carousel-control-prev" type="button" (click)="prevSlide()">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" (click)="nextSlide()">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </button>
         </div>
-      </div>
-    </div>
-    <div class="modal-content">
-      <div class="modal-description">
-        <h4 class="modal-title">{{ publicacion?.nombre }}</h4>
-        <p *ngIf="publicacion?.raza"><strong>Raza:</strong> {{ publicacion?.raza }}</p>
-        <p>{{ publicacion?.fecha_publicacion?.toDate() | date }}</p>
-        <p><strong>Descripción:</strong> {{ publicacion?.descripcion }}</p>
-        <p><strong>Lugar de publicación:</strong> Latitud: {{ publicacion?.lugar_publicacion?.latitude }}, Longitud: {{ publicacion?.lugar_publicacion?.longitude }}</p>
-      </div>
-    </div>
-  </div>
-</div>
+    </td>
+    <td class="td2">
+      <h4 class="modal-title">{{ publicacion?.nombre }}</h4>
+      <p *ngIf="publicacion?.raza"><strong>Raza:</strong> {{ publicacion?.raza }}</p>
+      <p><strong>Fecha de publicación:</strong> {{ publicacion?.fecha_publicacion?.toDate() | date }}</p>
+      <p><strong>Descripción:</strong> {{ publicacion?.descripcion }}</p>
+      <p><strong>Lugar de publicación:</strong> Latitud: {{ publicacion?.lugar_publicacion?.latitude }}, Longitud: {{ publicacion?.lugar_publicacion?.longitude }}</p>
+    </td>
+  </tr>
+</table>

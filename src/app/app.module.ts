@@ -13,6 +13,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { CardsComponent } from './cards/cards.component';
 import { CardModalComponent } from './card-modal/card-modal.component';
+import { CrearPublicacionComponent } from './crear-publicacion/crear-publicacion.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CardModalComponent } from './card-modal/card-modal.component';
     SidebarComponent,
     WelcomeComponent,
     CardsComponent,
-    CardModalComponent
+    CardModalComponent,
+    CrearPublicacionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,44 +1,73 @@
-.carousel-container {
-  width: 75%;
-  max-height: 680px;
-  min-height: 680px;
-}
-.carousel-item img {
-  max-height: 100%;
-  width: auto;
-}
-.modal-content {
-  width: 25%;
-  padding: 20px;
-}
-
-.modal-description {
-  background-color: #f8f9fa;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.modal-content , .modal-description, .modal-body {
-  background: #D2B48C;
-}
+/* Estilos para el botón de cierre */
 .close-button {
-  position: absolute;
-  z-index: 9999;
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  cursor: pointer;
-  display: flex;
+  position: absolute; /* Posicionamiento absoluto para que el botón se mantenga fijo */
+  top: 5px; /* Distancia desde arriba */
+  right: 5px; /* Distancia desde la derecha */
+  z-index: 9999; /* Capa más alta para que el botón esté siempre por encima */
+  width: 50px; /* Ancho del botón */
+  height: 50px; /* Altura del botón */
+  border-radius: 100%; /* Para hacer el botón completamente circular */
+  background: rgba(0, 0, 0, 0.5); /* Color de fondo semi transparente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  display: flex; /* Utiliza flexbox para centrar el contenido verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+/* Estilos para el icono de cierre */
+.close-button span {
+  color: white; /* Color blanco para el icono */
+  font-size: 37.5px; /* Tamaño del icono */
+}
+
+/* Estilos para el cuerpo del modal */
+:host {
+  background-color: #D2B48C;
+}
+table{
+  height: 600px; /* Altura máxima del modal */
+}
+.td1{
+  width: 75%;
+  min-width: 75%;
+  padding: 20px;
+  max-width: 75%;
   justify-content: center;
   align-items: center;
 }
-
-.close-button span {
-  color: white;
-  font-size: 30px;
+.td2{
+width: 25%;
+min-width: 25%;
+max-width: 25%;
+padding-right: 25px;
+padding-top: 25px;
+overflow-y: auto;
 }
-.carousel-control-next , .carousel-control-prev:hover{
-  background-color: rgba(0, 0, 0, 0.10);
+.carousel-item {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 560px; /* Altura máxima */
+  max-height: 100%; /* Altura mínima */
+}
+.carousel-item img {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%; /* Ancho máximo */
+  max-height: 100%; /* Alto máximo */
+  min-width: 100%; /* Ancho máximo */
+  min-height: 100%;
+  object-fit: contain; /* Ajusta la imagen para que quepa dentro del contenedor sin distorsionarse */
+}
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: rgba(0, 0, 0, 0.1); /* Color de fondo semi transparente */
+}
+
+/* Estilos para los botones de control del carrusel al pasar el puntero */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Color de fondo semi transparente más oscuro */
 }

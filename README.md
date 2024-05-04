@@ -1,5 +1,44 @@
 # FiruPets
 
+Este proyecto es una aplicación web desarrollada con Angular que actúa como un servicio para la adopción de mascotas. Permite a los usuarios publicar mascotas que desean dar en adopción y a otros usuarios adoptarlas.
+
+## Funcionalidades
+
+- **Registro y Autenticación de Usuarios:** Los usuarios pueden registrarse, iniciar sesión y cerrar sesión en la aplicación.
+- **Publicación de Mascotas:** Los usuarios pueden publicar información sobre mascotas que desean dar en adopción, incluyendo detalles como nombre, raza, descripción y ubicación.
+- **Búsqueda de Mascotas:** Los usuarios pueden buscar mascotas disponibles para adopción utilizando filtros como nombre, raza y ubicación.
+- **Adopción de Mascotas:** Los usuarios pueden ver información detallada sobre las mascotas disponibles para adopción y solicitar adoptarlas.
+- **Interacción con las Publicaciones:** Los usuarios pueden ver detalles completos de una publicación, comentar en las publicaciones y contactar con el propietario para obtener más información sobre la mascota.
+
+## Tecnologías Utilizadas
+
+- Angular
+- Firebase (Firestore para la base de datos y Firebase Authentication para la autenticación de usuarios)
+
+## Instalación
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/tu_usuario/firu-pets.git
+```
+
+2. Instala las dependencias:
+```bash
+cd firu-pets
+npm install
+```
+
+3. Configura Firebase:
+Crea un proyecto en Firebase y configura la base de datos Firestore y la autenticación de usuarios.
+Agrega la configuración de Firebase al archivo app.module.ts en el directorio src/.
+
+4. Ejecuta la aplicación:
+
+```bash
+ng serve
+```
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
 
 ## Development server

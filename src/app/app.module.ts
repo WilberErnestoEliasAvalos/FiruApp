@@ -14,6 +14,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { CardsComponent } from './cards/cards.component';
 import { CardModalComponent } from './card-modal/card-modal.component';
 import { CrearPublicacionComponent } from './crear-publicacion/crear-publicacion.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CrearPublicacionComponent } from './crear-publicacion/crear-publicacion
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     NgbModule,
     provideFirebaseApp(() => initializeApp({"projectId":"firupets-9ea19","appId":"1:19444182072:web:8512ceb1ec0de755a00acd","storageBucket":"firupets-9ea19.appspot.com","apiKey":"AIzaSyDyfMc36a3qi4vTzj-sdzZengorUVnKEd0","authDomain":"firupets-9ea19.firebaseapp.com","messagingSenderId":"19444182072"})),

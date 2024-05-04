@@ -1,8 +1,11 @@
 <div class="gallery">
-  <app-sidebar></app-sidebar>
+  <app-sidebar (searchEvent)="search($event)"></app-sidebar>
   <div class="cards-container">
     <ng-container *ngFor="let publicacion of publicaciones">
-      <app-cards [publicacion]="publicacion" (cardClicked)="onCardClicked($event)"></app-cards>
+      <app-cards
+        [publicacion]="publicacion"
+        (cardClicked)="onCardClicked($event)"
+      ></app-cards>
     </ng-container>
   </div>
 </div>

@@ -1,1 +1,22 @@
-<p>crear-publicacion works!</p>
+<div class="container">
+    <h2>Crear Publicación</h2>
+    <form (ngSubmit)="crearPublicacion()">
+      <div class="form-group">
+        <label for="titulo">Título</label>
+        <input type="text" class="form-control" id="titulo" [(ngModel)]="publicacion.titulo" name="titulo" required>
+      </div>
+      <div class="form-group">
+        <label for="contenido">Contenido</label>
+        <textarea class="form-control" id="contenido" [(ngModel)]="publicacion.contenido" name="contenido" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="autor">Autor</label>
+        <input type="text" class="form-control" id="autor" [(ngModel)]="publicacion.autor" name="autor" required>
+      </div>
+      <div class="form-group">
+        <label for="fecha">Fecha</label>
+        <input type="date" class="form-control" id="fecha" [(ngModel)]="publicacion.fecha" name="fecha" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </form>
+  </div>

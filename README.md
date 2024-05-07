@@ -20,7 +20,7 @@ Este proyecto es una aplicación web desarrollada con Angular que actúa como un
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/tu_usuario/firu-pets.git
+git clone https://github.com/WilberErnestoEliasAvalos/FiruApp
 ```
 
 2. Instala las dependencias:

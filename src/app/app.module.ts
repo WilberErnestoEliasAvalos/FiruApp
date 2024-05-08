@@ -36,6 +36,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     NgbModule,
     provideFirebaseApp(() => initializeApp({"projectId":"firupets-9ea19","appId":"1:19444182072:web:8512ceb1ec0de755a00acd","storageBucket":"firupets-9ea19.appspot.com","apiKey":"AIzaSyDyfMc36a3qi4vTzj-sdzZengorUVnKEd0","authDomain":"firupets-9ea19.firebaseapp.com","messagingSenderId":"19444182072"})),
     provideFirestore(() => getFirestore()),
+    provideFirebaseApp(() => initializeApp({"projectId":"firupets-9ea19","appId":"1:19444182072:web:8512ceb1ec0de755a00acd","storageBucket":"firupets-9ea19.appspot.com","apiKey":"AIzaSyDyfMc36a3qi4vTzj-sdzZengorUVnKEd0","authDomain":"firupets-9ea19.firebaseapp.com","messagingSenderId":"19444182072"})),
     provideStorage(() => getStorage()),
   ],
   providers: [],

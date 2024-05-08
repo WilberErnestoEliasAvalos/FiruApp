@@ -3,6 +3,7 @@ import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { Publicacion } from '../publicacion.model'; // Asegúrate de que la ruta al modelo Publicacion es correcta
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, setDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, DocumentData } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, setDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, DocumentData, query, where } from '@angular/fire/firestore';
 import { Publicacion } from './publicacion.model';
 
 @Injectable({
@@ -22,12 +22,17 @@ export class PublicacionesService {
     return documentSnapshot.exists() ? documentSnapshot.data() : null;
   }
 
-  // Método para crear una nueva publicación
-  async crearPublicacion(publicacion: Publicacion) {
-    const documentRef = doc(collection(this.firestore, 'publicaciones')); // Crear un documento con un ID aleatorio
-    const pubId = `pub_${documentRef.id}`; // Crear el ID de la publicación con el formato requerido
-    await setDoc(documentRef, { ...publicacion, id: pubId }); // Añadir el ID de la publicación al documento
-  }
+// Método para obtener todas las publicaciones de un usuario
+async getPublicacionesByUserId(userId: string) {
+  const querySnapshot = await getDocs(query(collection(this.firestore, 'publicaciones'), where('userId', '==', userId)));
+  return querySnapshot.docs.map(doc => doc.data()) as Publicacion[];
+}
+
+// Método para crear una nueva publicación
+async crearPublicacion(publicacion: Publicacion, userId: string) {
+  publicacion.userId = userId; // Asignar el ID de usuario a la publicación
+  await addDoc(collection(this.firestore, 'publicaciones'), publicacion);
+}
 
   // Método para actualizar una publicación existente
   async actualizarPublicacion(id: string, datos: any) {

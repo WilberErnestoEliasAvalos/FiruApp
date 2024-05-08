@@ -1,22 +1,25 @@
 <div class="container">
   <h2>Crear Publicación</h2>
-  <form (ngSubmit)="crearPublicacion()">
+  <form (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" class="publicacion-form">
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <input type="text" class="form-control" id="nombre" [(ngModel)]="publicacion.nombre" name="nombre" required>
+      <input type="text" class="form-control" id="nombre" [(ngModel)]="publicacion.nombre" name="nombre">
     </div>
     <div class="form-group">
       <label for="descripcion">Descripción</label>
-      <textarea class="form-control" id="descripcion" [(ngModel)]="publicacion.descripcion" name="descripcion" required></textarea>
+      <textarea class="form-control" id="descripcion" [(ngModel)]="publicacion.descripcion" name="descripcion" required #descripcion="ngModel"></textarea>
+      <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
+        La descripción es requerida.
+      </div>
     </div>
     <div class="form-group">
       <label for="raza">Raza</label>
-      <input type="text" class="form-control" id="raza" [(ngModel)]="publicacion.raza" name="raza" required>
+      <input type="text" class="form-control" id="raza" [(ngModel)]="publicacion.raza" name="raza">
     </div>
     <div class="form-group">
-      <label for="fecha_publicacion">Fecha de Publicación</label>
-      <input type="date" class="form-control" id="fecha_publicacion" [(ngModel)]="publicacion.fecha_publicacion" name="fecha_publicacion" required>
+      <label for="fotos">Fotos</label>
+      <input type="file" class="form-control" id="fotos" (change)="onFileSelected($event)" multiple>
     </div>
-    <button type="submit" class="btn btn-primary">Crear</button>
+    <button type="submit" class="btn btn-primary" [disabled]="descripcion.invalid">Crear</button>
   </form>
 </div>

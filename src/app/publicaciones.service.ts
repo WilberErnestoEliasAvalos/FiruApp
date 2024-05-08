@@ -30,6 +30,10 @@ async getPublicacionesByUserId(userId: string) {
 
 // Método para crear una nueva publicación
 async crearPublicacion(publicacion: Publicacion, userId: string) {
+  if (publicacion.descripcion.trim() === '') {
+    throw new Error('La descripción no puede estar vacía');
+  }
+
   publicacion.userId = userId; // Asignar el ID de usuario a la publicación
   await addDoc(collection(this.firestore, 'publicaciones'), publicacion);
 }

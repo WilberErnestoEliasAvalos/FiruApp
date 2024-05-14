@@ -19,6 +19,8 @@
         
         <button class="btn btn-outline-light btn-lg px-5 mb-3" type="submit">Login</button>
       </form>
+<!-- Aquí es donde se mostrará el mensaje de error -->
+<p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
       <p class="small mb-3 pb-lg-1"><a class="text-white-50" href="#!">¿Has olvidado tu contraseña?</a></p>
 

@@ -14,7 +14,10 @@
         </li>
       </ul>
       <div class="d-flex align-items-center justify-content-center justify-content-lg-end flex-grow-1">
-        <button class="btn btn-outline-light mx-lg-2" id="loginButton" (click)="openLoginModal()">Iniciar Sesión</button>
+        <button *ngIf="!(user$ | async); else loggedIn" class="btn btn-outline-light mx-lg-2" id="loginButton" (click)="openLoginModal()">Iniciar Sesión</button>
+        <ng-template #loggedIn>
+          <button class="btn btn-outline-light mx-lg-2" (click)="logout()">Cerrar Sesión</button>
+        </ng-template>
       </div>
     </div>
   </div>

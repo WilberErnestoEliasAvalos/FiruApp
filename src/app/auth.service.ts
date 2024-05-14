@@ -1,25 +1,32 @@
 import { Injectable } from '@angular/core';
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut } from '@angular/fire/auth';
+import { EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() { }
+  loginSuccess = new EventEmitter<void>(); // Añade esta línea
+  constructor(private auth: Auth) { }
 
+  getAuth() {
+    return this.auth;
+  }
+  
   login(email: string, password: string) {
-    const auth = getAuth();
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(this.auth, email, password).then(() => {
+      this.loginSuccess.emit(); // Añade esta línea
+    });
   }
 
   loginWithGoogle() {
-    const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+    return signInWithPopup(this.auth, provider).then(() => {
+      this.loginSuccess.emit(); // Añade esta línea
+    });
   }
 
   logout() {
-    const auth = getAuth();
-    return signOut(auth);
+    return signOut(this.auth);
   }
 }

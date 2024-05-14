@@ -6,17 +6,20 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardModalComponent } from './card-modal/card-modal.component';
 import { CrearPublicacionComponent } from './crear-publicacion/crear-publicacion.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+
+// Importaciones de AngularFire
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { provideAuth, getAuth } from '@angular/fire/auth';
+
+import { AppRoutingModule } from './app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,6 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    AngularFireAuthModule,
     NgbModule,
     provideFirebaseApp(() => initializeApp({
       projectId: "firupets-9ea19",
@@ -48,6 +50,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
     provideStorage(() => getStorage()),
     provideAuth(() => getAuth()),
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

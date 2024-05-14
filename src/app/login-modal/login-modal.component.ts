@@ -9,15 +9,17 @@ import { AuthService } from '../auth.service';
 export class LoginModalComponent {
   email: string = '';
   password: string = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService) { }
 
   login() {
-    this.authService.login(this.email, this.password).then(() => {
-      // Inicio de sesión exitoso
-    }).catch((error) => {
-      // Error en el inicio de sesión
-      console.error(error);
+    this.authService.login(this.email, this.password).catch(error => {
+      if (error.code === 'auth/invalid-credential') {
+        this.errorMessage = 'Correo electrónico o contraseña incorrectos.';
+      } else {
+        this.errorMessage = 'Ocurrió un error al iniciar sesión.';
+      }
     });
   }
 

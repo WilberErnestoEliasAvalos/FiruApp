@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
-import { Publicacion } from '../publicacion.model'; // Asegúrate de que la ruta al modelo Publicacion es correcta
+import { Publicacion } from '../publicacion.model';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-crear-publicacion',
   templateUrl: './crear-publicacion.component.html',
   styleUrls: ['./crear-publicacion.component.css']
 })
-export class CrearPublicacionComponent {
+export class CrearPublicacionComponent implements OnInit, OnDestroy {
   publicacion: Publicacion = {
     descripcion: '',
     fecha_publicacion: firebase.firestore.Timestamp.now(),
@@ -21,7 +23,19 @@ export class CrearPublicacionComponent {
     raza: ''
   };
   storage = getStorage();
-  constructor(private firestore: Firestore) { }
+  private subscription: Subscription = Subscription.EMPTY; // Aquí está la declaración de subscription
+
+  constructor(private firestore: Firestore, private authService: AuthService, private router: Router) { }
+  
+  ngOnInit() {
+    this.subscription = this.authService.logoutSuccess.subscribe(() => {
+      this.router.navigate(['/gallery']); // Redirige al usuario a la galería
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe(); // No olvides cancelar la suscripción
+  }
 
   async crearPublicacion() {
     try {

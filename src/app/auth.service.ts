@@ -9,6 +9,7 @@ import { ModalService } from './modal.service'; // Asegúrate de que esta ruta s
 })
 export class AuthService {
   loginSuccess = new EventEmitter<void>();
+  logoutSuccess = new EventEmitter<void>();
   redirectUrl: string | null = '';
 
   constructor(private auth: Auth, private modalService: ModalService, private router: Router) {} // Inyecta Router
@@ -57,8 +58,11 @@ export class AuthService {
   }
 
   logout() {
-    return signOut(this.auth);
+    return signOut(this.auth).then(() => {
+      this.logoutSuccess.emit();
+    });
   }
+
   async resetPassword(email: string): Promise<void> {
     try {
       await sendPasswordResetEmail(this.auth, email);

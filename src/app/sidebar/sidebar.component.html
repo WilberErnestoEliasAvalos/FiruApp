@@ -6,7 +6,7 @@
       <button class="btn btn-outline-primary" type="submit">Buscar</button>
     </div>
   </form>
-  <button class="btn btn-primary btn-block" routerLink="/crear-publicacion">Crear publicación</button>
+  <button class="btn btn-primary btn-block" (click)="createPost()">Crear publicación</button>
     <h6 class="mb-3">Filtros</h6>
   
     <div class="mb-3">
@@ -17,7 +17,6 @@
         <option value="gato">Gato</option>
         <option value="hamster">Hamster</option>
         <option value="tortuga">Tortuga</option>
-        <option value="otros">Otros</option>
       </select>
     </div>
   

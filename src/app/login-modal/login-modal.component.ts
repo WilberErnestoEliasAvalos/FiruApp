@@ -24,10 +24,12 @@ export class LoginModalComponent {
     if (this.showResetPasswordForm) {
       try {
         await this.authService.resetPassword(this.email);
-        this.statusMessage = 'Se ha enviado un correo electrónico de restablecimiento de contraseña a tu correo electrónico.';
+        this.statusMessage =
+          'Se ha enviado un correo electrónico de restablecimiento de contraseña a tu correo electrónico.';
       } catch (error: any) {
         if (error.code === 'auth/user-not-found') {
-          this.statusMessage = 'No hay ninguna cuenta registrada con ese correo electrónico.';
+          this.statusMessage =
+            'No hay ninguna cuenta registrada con ese correo electrónico.';
         } else {
           // Manejar otros errores
         }

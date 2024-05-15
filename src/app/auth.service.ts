@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Auth,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged,sendPasswordResetEmail } from '@angular/fire/auth';
+import { Router } from '@angular/router'; // Importa Router
+import { Auth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail } from '@angular/fire/auth';
 import { EventEmitter } from '@angular/core';
+import { ModalService } from './modal.service'; // Asegúrate de que esta ruta sea correcta
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   loginSuccess = new EventEmitter<void>();
-  constructor(private auth: Auth) {}
+  redirectUrl: string | null = '';
+
+  constructor(private auth: Auth, private modalService: ModalService, private router: Router) {} // Inyecta Router
 
   getAuth() {
     return this.auth;
@@ -32,13 +36,23 @@ export class AuthService {
   login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password).then(() => {
       this.loginSuccess.emit();
+      this.modalService.closeModal(); // Cierra el modal después de un inicio de sesión exitoso
+      if (this.redirectUrl) {
+        this.router.navigate([this.redirectUrl]); // Redirige al usuario
+        this.redirectUrl = null; // Borra la URL guardada
+      }
     });
   }
-
+  
   loginWithGoogle() {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(this.auth, provider).then(() => {
       this.loginSuccess.emit();
+      this.modalService.closeModal(); // Cierra el modal después de un inicio de sesión exitoso
+      if (this.redirectUrl) {
+        this.router.navigate([this.redirectUrl]); // Redirige al usuario
+        this.redirectUrl = null; // Borra la URL guardada
+      }
     });
   }
 

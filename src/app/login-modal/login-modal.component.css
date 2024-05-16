@@ -1,39 +1,93 @@
-.custom-input {
-  position: relative;
+body {
+  background-color: #f5f5dc; /* Beige como color de fondo */
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  background-color: #ffe4c4; /* Blanco hueso para la tarjeta */
+  border: 1px solid #d2b48c; /* Café claro para el borde */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  color: #8b4513; /* Café oscuro para el título */
+  margin-bottom: 1rem;
+}
+
+.card p {
+  color: #8b4513; /* Café oscuro para el texto */
 }
 
 .custom-input input {
   background-color: transparent;
-  border: 2px solid #ffffff;
-  border-radius: 1;
+  border: 2px solid #8b4513; /* Café oscuro para el borde del input */
+  border-radius: 5px;
   padding: 1rem;
-  transition: border-color 0.2s;
-  color: #ffffff; /* Color de texto cuando se muestra el marcador de posición */
+  transition: border-color 0.2s, background-color 0.2s;
+  color: #8b4513; /* Café oscuro para el texto del input */
 }
 
 .custom-input input:focus {
-  border-color: #fff;
-  background-color: white;
+  border-color: #d2b48c; /* Café claro para el borde del input al enfocar */
+  background-color: #ffffff; /* Fondo blanco al enfocar */
   color: #000000; /* Color de texto cuando el input está seleccionado */
 }
 
 .custom-input label {
   position: absolute;
   left: 1rem;
-  color: #ffffff; /* Color de texto */
+  color: #8b4513; /* Café oscuro para el texto del label */
   font-size: 1rem;
-  transition: top 0.2s, left 0.2s, font-size 0.2s;
+  transition: top 0.2s, left 0.2s, font-size 0.2s, color 0.2s;
 }
 
 .custom-input input:focus + label,
 .custom-input input:not(:placeholder-shown) + label {
-  top: 0;
-  left: 0.75rem;
-  font-size: 0.80rem;
-  color: #000000; /* Color de texto cuando se selecciona */
+  top: -0.75rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  color: #d2b48c; /* Café claro para el label cuando se enfoca */
 }
 
-/* Estilos para pantallas de tamaño pequeño (menos de 600px) */
+.btn-outline-light {
+  border: 2px solid #8b4513; /* Café oscuro para el borde del botón */
+  color: #8b4513; /* Café oscuro para el texto del botón */
+}
+
+.btn-outline-light:hover {
+  background-color: #8b4513; /* Café oscuro como fondo al pasar el mouse */
+  color: #ffffff; /* Texto blanco al pasar el mouse */
+}
+
+.btn-block {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 1rem;
+}
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5);
+}
+/* Enlace para "¿Has olvidado tu contraseña?" */
+.custom-link {
+  color: #8b4513; /* Café oscuro para el texto del enlace */
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.custom-link:hover {
+  color: #d2b48c; /* Café claro para el texto del enlace al pasar el mouse */
+  text-decoration: underline;
+}
+
+
 @media (max-width: 600px) {
   .custom-input input {
     padding: 0.5rem;

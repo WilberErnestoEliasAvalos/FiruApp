@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router'; // Importa Router
+import { Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail } from '@angular/fire/auth';
 import { EventEmitter } from '@angular/core';
-import { ModalService } from './modal.service'; // Asegúrate de que esta ruta sea correcta
+import { ModalService } from './modal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,12 @@ export class AuthService {
   logoutSuccess = new EventEmitter<void>();
   redirectUrl: string | null = '';
 
-  constructor(private auth: Auth, private modalService: ModalService, private router: Router) {} // Inyecta Router
-
+  constructor(private auth: Auth, private modalService: ModalService, private router: Router) {
+    // Escucha el evento loginSuccess y redirige a la galería
+    this.loginSuccess.subscribe(() => {
+      this.router.navigate(['/gallery']);
+    });
+  }
   getAuth() {
     return this.auth;
   }

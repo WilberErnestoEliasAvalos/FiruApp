@@ -1,0 +1,66 @@
+body {
+    background-color: #f5f5dc; /* Beige como color de fondo */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  form {
+    background-color: #ffe4c4; /* Blanco hueso para el fondo del formulario */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 1rem;
+    color: #8b4513; /* Café oscuro para el texto de las etiquetas */
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="file"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    border: 1px solid #d2b48c; /* Café claro para el borde del input */
+    border-radius: 5px;
+    background-color: transparent;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input[type="tel"]:focus,
+  input[type="file"]:focus {
+    border-color: #8b4513; /* Café oscuro al enfocar */
+    outline: none;
+    background-color: #ffffff; /* Fondo blanco al enfocar */
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #8b4513; /* Café oscuro para el fondo del botón */
+    color: #ffffff; /* Texto blanco */
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #d2b48c; /* Café claro al pasar el mouse */
+  }

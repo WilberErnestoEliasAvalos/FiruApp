@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -13,7 +14,11 @@ export class LoginModalComponent {
   showResetPasswordForm: boolean = false;
   statusMessage: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private modalService: ModalService) {}
+
+  closeModal(): void {
+    this.modalService.closeModal();
+  }
 
   toggleResetPasswordForm(): void {
     this.showResetPasswordForm = !this.showResetPasswordForm;

@@ -1,6 +1,6 @@
-<div class="card bg-dark text-white">
+<div class="card">
   <div class="card-body p-4 p-md-5 text-center">
-    <div class="mb-md-4 pb-4 pb-md-5">
+    <div class="">
       <h2>
         {{ showResetPasswordForm ? "Restablecer contraseña" : "Inicia Sesion" }}
       </h2>
@@ -12,18 +12,33 @@
         }}
       </p>
 
-      <form (submit)="loginOrResetPassword()">
+      <form #form="ngForm" (submit)="loginOrResetPassword()">
         <div class="form-floating mb-3 mb-md-4 custom-input">
           <input
             type="email"
             id="typeEmailX"
             class="form-control form-control-lg"
-            placeholder=""
+            placeholder=" "
             [(ngModel)]="email"
             name="email"
+            #emailField="ngModel"
             required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           />
           <label for="typeEmailX">Email</label>
+          <div
+            *ngIf="
+              emailField.invalid && (emailField.dirty || emailField.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="emailField.errors && emailField.errors['required']">
+              El correo electrónico es requerido.
+            </div>
+            <div *ngIf="emailField.errors && emailField.errors['pattern']">
+              El formato de correo electrónico no es válido.
+            </div>
+          </div>
         </div>
 
         <div
@@ -34,7 +49,7 @@
             type="password"
             id="typePasswordX"
             class="form-control form-control-lg"
-            placeholder=""
+            placeholder=" "
             [(ngModel)]="password"
             name="password"
             required
@@ -48,11 +63,14 @@
           }}
         </button>
       </form>
-      <!-- Aquí es donde se mostrará el mensaje de error -->
       <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
       <p class="small mb-3 pb-lg-1">
-        <a class="text-white-50" href="javascript:void(0);" (click)="toggleResetPasswordForm()">
+        <a
+          class="custom-link"
+          href="javascript:void(0);"
+          (click)="toggleResetPasswordForm()"
+        >
           {{
             showResetPasswordForm
               ? "Volver a Iniciar Sesión"
@@ -68,8 +86,14 @@
       >
         <i class="fab fa-google me-2"></i>Inicia con Google
       </button>
+      <p>No tienes una cuenta? Registrate ahora!</p>
+      <button
+        class="btn btn-lg btn-block mt-3"
+        style="background-color: #8b4513; color: white"
+        [routerLink]="['/signup']"
+        (click)="closeModal()">
+        Registrarme
+      </button>
     </div>
-
-    <div class="row"></div>
   </div>
 </div>

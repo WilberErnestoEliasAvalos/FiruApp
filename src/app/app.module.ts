@@ -10,7 +10,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 // Importaciones de AngularFire
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -19,6 +21,8 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SignupComponent } from './signup/signup.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 @NgModule({
@@ -32,11 +36,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CardsComponent,
     CardModalComponent,
     CrearPublicacionComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
+    MatIconModule,
     FormsModule,
+    MatTooltipModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     NgbModule,
     provideFirebaseApp(() => initializeApp({
       projectId: "firupets-9ea19",
@@ -50,7 +58,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     provideStorage(() => getStorage()),
     provideAuth(() => getAuth()),
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

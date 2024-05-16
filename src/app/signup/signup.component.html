@@ -1,0 +1,40 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <label>
+        Nombres y Apellidos:
+        <mat-icon matTooltip="Por favor, ingrese su nombre completo tal y como está en su DUI." matTooltipPosition="above">info</mat-icon>
+        <input type="text" formControlName="fullName">
+      </label>
+  
+    <label>
+      Correo Electrónico:
+      <input type="email" formControlName="email">
+    </label>
+  
+    <label>
+      Contraseña:
+      <input type="password" formControlName="password">
+    </label>
+  
+    <label>
+      Confirmación de Contraseña:
+      <input type="password" formControlName="confirmPassword">
+    </label>
+  
+    <label>
+      Número de Teléfono:
+      <input type="tel" formControlName="phoneNumber">
+    </label>
+  
+    <label>
+      Dirección:
+      <input type="text" formControlName="address">
+    </label>
+  
+    <label>
+      Foto de Perfil:
+      <input type="file" formControlName="profilePicture">
+    </label>
+  
+    <button type="submit">Registrarme</button>
+  </form>
+  

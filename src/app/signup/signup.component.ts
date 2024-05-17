@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
@@ -18,6 +18,7 @@ function MustMatch(controlName: string, matchingControlName: string) {
   }
 }
 
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -25,6 +26,7 @@ function MustMatch(controlName: string, matchingControlName: string) {
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
+  imagePreview: string | ArrayBuffer = '';
 
   constructor(private fb: FormBuilder) { }
 
@@ -34,15 +36,37 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$')]],
       confirmPassword: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^([+]?[1-9]{1,4}[-. ]?)?([(]?[0-9]{1,4}[)]?[-. ]?)?[0-9]{1,4}[-. ]?[0-9]{1,4}[-. ]?[0-9]{1,9}$')]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
       address: ['', Validators.required],
-      profilePicture: ['']
-    }, {
+      profilePicture: ['', [Validators.required, this.imageValidator]],    }, {
       validator: MustMatch('password', 'confirmPassword')
     });
+    
   }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      const file = target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => {
+        if (reader.result) {
+          this.imagePreview = reader.result;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  imageValidator(control: AbstractControl): { [key: string]: any } | null {
+    const file = control.value;
+    if (file && file.length > 1) {
+      return { 'tooManyImages': true };
+    }
+    return null;
+  }
+  
 
   onSubmit(): void {
     console.log(this.signupForm.value);
   }
+
 }

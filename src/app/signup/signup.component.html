@@ -1,40 +1,222 @@
-<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-    <label>
+<div style="display: flex; width: 100%">
+  <div style="flex: 1">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div style="display: flex">
+      <label style="flex: 1">
         Nombres y Apellidos:
-        <mat-icon matTooltip="Por favor, ingrese su nombre completo tal y como está en su DUI." matTooltipPosition="above">info</mat-icon>
-        <input type="text" formControlName="fullName">
+        <mat-icon
+          matTooltip="Por favor, ingrese su nombre completo tal y como está en su DUI."
+          matTooltipPosition="above"
+          matTooltipHideDelay="1000"
+          >info</mat-icon
+        >
+        <input type="text" formControlName="fullName" />
+        <div
+          style="color: red"
+          *ngIf="signupForm.get('fullName')?.errors?.['required'] && (signupForm.get('fullName')?.dirty || signupForm.get('fullName')?.touched)"
+        >
+          Este campo es obligatorio.
+        </div>
       </label>
-  
-    <label>
-      Correo Electrónico:
-      <input type="email" formControlName="email">
-    </label>
-  
-    <label>
-      Contraseña:
-      <input type="password" formControlName="password">
-    </label>
-  
-    <label>
-      Confirmación de Contraseña:
-      <input type="password" formControlName="confirmPassword">
-    </label>
-  
-    <label>
-      Número de Teléfono:
-      <input type="tel" formControlName="phoneNumber">
-    </label>
-  
-    <label>
-      Dirección:
-      <input type="text" formControlName="address">
-    </label>
-  
-    <label>
-      Foto de Perfil:
-      <input type="file" formControlName="profilePicture">
-    </label>
-  
-    <button type="submit">Registrarme</button>
-  </form>
-  
+
+      <label style="flex: 1">
+        Correo Electrónico:
+        <mat-icon
+          matTooltip="Enviaremos un correo de verificacion a esta dirección."
+          matTooltipPosition="above"
+          matTooltipHideDelay="1000"
+          >info</mat-icon
+        >
+        <input type="email" formControlName="email" />
+        <div
+          style="color: red"
+          *ngIf="signupForm.get('email')?.errors?.['required'] && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)"
+        >
+          Este campo es obligatorio.
+        </div>
+        <div
+          *ngIf="signupForm.get('email')?.errors?.['email'] && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)"
+        >
+          Por favor, introduce una dirección de correo electrónico válida.
+        </div>
+      </label>
+    </div>
+      <div style="display: flex">
+        <label style="flex: 1">
+          Contraseña:
+          <mat-icon
+            matTooltip="Escriba una contraseña de almenos 8 caracteres, incluido al menos un número o una letra."
+            matTooltipPosition="above"
+            matTooltipHideDelay="1000"
+            >info</mat-icon
+          >
+          <input type="password" formControlName="password" />
+          <div
+            style="color: red"
+            *ngIf="
+              signupForm.get('password')?.errors?.['required'] &&
+              (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)
+            "
+          >
+            Este campo es obligatorio.
+          </div>
+          <div
+            *ngIf="
+              signupForm.get('password')?.errors?.['minlength'] &&
+              (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)
+            "
+          >
+            La contraseña debe tener al menos 8 caracteres.
+          </div>
+          <div
+            *ngIf="
+              signupForm.get('password')?.errors?.['pattern'] &&
+              (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)
+            "
+          >
+            La contraseña debe contener al menos un número y una letra.
+          </div>
+        </label>
+
+        <label style="flex: 1">
+          Confirmación de Contraseña:
+          <mat-icon
+            matTooltip="Confirme la contraseña ingresada anteriormente"
+            matTooltipPosition="above"
+            matTooltipHideDelay="1000"
+            >info</mat-icon
+          >
+          <input type="password" formControlName="confirmPassword" />
+          <div
+            *ngIf="
+        signupForm.get('confirmPassword')?.errors?.['mustMatch'] &&
+        (signupForm.get('confirmPassword')?.dirty ||
+          signupForm.get('confirmPassword')?.touched)
+      "
+          >
+            Contraseña no coincide
+          </div>
+          <div
+            style="color: red"
+            *ngIf="
+      signupForm.get('confirmPassword')?.errors?.['required'] &&
+      (signupForm.get('confirmPassword')?.dirty || signupForm.get('confirmPassword')?.touched)
+    "
+          >
+            Este campo es obligatorio.
+          </div>
+        </label>
+      </div>
+
+      <label>
+        Número de Teléfono:
+        <mat-icon
+          matTooltip="Escriba su número de teléfono sin guiones ni espacios. Ejemplo: 76543210"
+          matTooltipPosition="above"
+          matTooltipHideDelay="1000"
+          >info</mat-icon
+        >
+        <input type="tel" formControlName="phoneNumber" />
+        <div
+          *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern'] && (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched)"
+        >
+          El número de teléfono debe tener exactamente 8 dígitos y no debe
+          contener espacios ni otros caracteres no numéricos.
+        </div>
+        <div
+          style="color: red"
+          *ngIf="
+      signupForm.get('phoneNumber')?.errors?.['required'] &&
+      (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched)
+    "
+        >
+          Este campo es obligatorio.
+        </div>
+      </label>
+
+      <label>
+        Dirección:
+        <mat-icon
+          matTooltip="Escriba su dirección de residencia, tal y como está en su DUI."
+          matTooltipPosition="above"
+          matTooltipHideDelay="1000"
+          >info</mat-icon
+        >
+        <input type="text" formControlName="address" />
+        <div
+          style="color: red"
+          *ngIf="
+      signupForm.get('address')?.errors?.['required'] &&
+      (signupForm.get('address')?.dirty || signupForm.get('address')?.touched)
+    "
+        >
+          Este campo es obligatorio.
+        </div>
+      </label>
+
+      <label>
+        Foto de Perfil:
+        <input
+          type="file"
+          formControlName="profilePicture"
+          accept="image/*"
+          (change)="onFileChange($event)"
+        />
+        <div
+          style="color: red"
+          *ngIf="
+      signupForm.get('profilePicture')?.errors?.['required'] &&
+      (signupForm.get('profilePicture')?.dirty || signupForm.get('profilePicture')?.touched)
+    "
+        >
+          La foto de perfil es obligatoria.
+        </div>
+      </label>
+      <button type="submit" [disabled]="!signupForm.valid">Registrarme</button>
+    </form>
+  </div>
+  <div
+    style="
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+    "
+  >
+    <div>
+      <h2 style="text-align: center">Vista Previa del Perfil</h2>
+      <div
+        class="card pointer"
+        *ngIf="
+          signupForm.get('fullName')?.value ||
+          signupForm.get('address')?.value ||
+          signupForm.get('phoneNumber')?.value ||
+          imagePreview
+        "
+      >
+        <img
+          [src]="imagePreview || 'assets/Imagenes/default.jpg'"
+          class="card-img-top"
+          alt="Vista previa de la imagen"
+        />
+        <div class="card-body">
+          <span
+            ><h3 class="card-text">
+              {{ signupForm.get("fullName")?.value }}
+            </h3></span
+          >
+          <span
+            ><h4 class="card-text">
+              Dirección: {{ signupForm.get("address")?.value }}
+            </h4></span
+          >
+          <span
+            ><h5 class="card-text">
+              Teléfono: {{ signupForm.get("phoneNumber")?.value }}
+            </h5></span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

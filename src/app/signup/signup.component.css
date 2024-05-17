@@ -1,66 +1,120 @@
 body {
-    background-color: #f5f5dc; /* Beige como color de fondo */
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+form {
+  background-color: #ffe4c4; /* Blanco hueso para el fondo del formulario */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1%;
+}
+
+@media screen and (max-width: 768px) {
   form {
-    background-color: #ffe4c4; /* Blanco hueso para el fondo del formulario */
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
+    max-width: 90%;
+    margin-left: 5%;
   }
-  
-  label {
-    display: block;
-    margin-bottom: 1rem;
-    color: #8b4513; /* Café oscuro para el texto de las etiquetas */
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="tel"],
-  input[type="file"] {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 0.25rem;
-    border: 1px solid #d2b48c; /* Café claro para el borde del input */
-    border-radius: 5px;
-    background-color: transparent;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
-  }
-  
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="password"]:focus,
-  input[type="tel"]:focus,
-  input[type="file"]:focus {
-    border-color: #8b4513; /* Café oscuro al enfocar */
-    outline: none;
-    background-color: #ffffff; /* Fondo blanco al enfocar */
-  }
-  
-  button[type="submit"] {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #8b4513; /* Café oscuro para el fondo del botón */
-    color: #ffffff; /* Texto blanco */
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #d2b48c; /* Café claro al pasar el mouse */
-  }
+}
+
+label {
+  display: block;
+  margin-bottom: 1rem;
+  color: #8b4513; /* Café oscuro para el texto de las etiquetas */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  border: 1px solid #d2b48c; /* Café claro para el borde del input */
+  border-radius: 5px;
+  background-color: transparent;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus,
+input[type="file"]:focus {
+  border-color: #8b4513; /* Café oscuro al enfocar */
+  outline: none;
+  background-color: #ffffff; /* Fondo blanco al enfocar */
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #8b4513; /* Café oscuro para el fondo del botón */
+  color: #ffffff; /* Texto blanco */
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.card {
+  width: 280.25px;
+  height: 387.22px;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  overflow: hidden; /* Evita que la imagen se desborde de la card */
+  padding: 4px;
+  background-color: #ffffff;
+  border-color: rgba(0, 0, 0, 0);
+  text-align: left;
+}
+
+.card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Escalar y recortar la imagen para que llene la card */
+  aspect-ratio: 1/1;
+}
+
+.card-body {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  padding: 12px 0; /* Ajusta el relleno según sea necesario */
+  margin-top: -4px; /* Ajusta los márgenes según sea necesario */
+  display: flex;
+  flex-direction: column;
+}
+h3, h4, h5 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Número de líneas a mostrar */
+  -webkit-box-orient: vertical;
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: normal;
+  -webkit-line-clamp: 2; /* Número de líneas a mostrar */
+}
+
+h5 {
+  font-size: 13px;
+  font-weight: normal;
+}

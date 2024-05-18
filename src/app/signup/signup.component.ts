@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Firestore, collection, doc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
@@ -18,7 +22,6 @@ function MustMatch(controlName: string, matchingControlName: string) {
   }
 }
 
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -28,7 +31,12 @@ export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   imagePreview: string | ArrayBuffer = '';
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private auth: Auth,
+    private firestore: Firestore,
+    private storage: Storage
+  ) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
@@ -38,10 +46,11 @@ export class SignupComponent implements OnInit {
       confirmPassword: ['', Validators.required],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
       address: ['', Validators.required],
-      profilePicture: ['', [Validators.required, this.imageValidator]],    }, {
+      profilePicture: ['', [Validators.required, this.imageValidator]],
+    }, {
       validator: MustMatch('password', 'confirmPassword')
     });
-    
+
   }
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -63,10 +72,25 @@ export class SignupComponent implements OnInit {
     }
     return null;
   }
-  
 
-  onSubmit(): void {
-    console.log(this.signupForm.value);
+  async onSubmit(): Promise<void> {
+    const { email, password, ...rest } = this.signupForm.value;
+
+    const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+    const { user } = userCredential;
+
+    // Guardar el resto del formulario en Firestore
+    const docRef = doc(this.firestore, 'registros', user?.uid);
+    await setDoc(docRef, rest);
+
+    // Guardar la foto de perfil en Firebase Storage
+    const filePath = `foto-perfil/${user?.uid}`;
+    const fileRef = ref(this.storage, filePath);
+    await uploadBytes(fileRef, rest.profilePicture);
+
+    // Obtener la URL de la imagen y guardarla en Firestore
+    const url = await getDownloadURL(fileRef);
+await updateDoc(docRef, { profilePicture: url });
   }
 
 }

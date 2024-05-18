@@ -24,7 +24,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignupComponent } from './signup/signup.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -49,16 +50,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     ReactiveFormsModule,
     NgbModule,
     provideFirebaseApp(() => initializeApp({
-      projectId: "firupets-9ea19",
-      appId: "1:19444182072:web:8512ceb1ec0de755a00acd",
-      storageBucket: "firupets-9ea19.appspot.com",
       apiKey: "AIzaSyDyfMc36a3qi4vTzj-sdzZengorUVnKEd0",
       authDomain: "firupets-9ea19.firebaseapp.com",
-      messagingSenderId: "19444182072"
+      projectId: "firupets-9ea19",
+      storageBucket: "firupets-9ea19.appspot.com",
+      messagingSenderId: "19444182072",
+      appId: "1:19444182072:web:8512ceb1ec0de755a00acd",
     })),
+    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    provideAuth(() => getAuth()),
   ],
   providers: [
     provideAnimationsAsync()

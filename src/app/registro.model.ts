@@ -2,7 +2,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
 export interface Registro {
-  id: string; // La ID personalizada del documento, por ejemplo "user_01"
   uid: string; // La UID de Authentication de la cuenta que se está creando
   address: string; // La dirección del usuario
   fullName: string; // El nombre completo del usuario

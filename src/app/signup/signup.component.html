@@ -2,45 +2,32 @@
   <div style="flex: 1">
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <div style="display: flex">
-      <label style="flex: 1">
-        Nombres y Apellidos:
-        <mat-icon
-          matTooltip="Por favor, ingrese su nombre completo tal y como está en su DUI."
-          matTooltipPosition="above"
-          matTooltipHideDelay="1000"
-          >info</mat-icon
-        >
-        <input type="text" formControlName="fullName" />
-        <div
-          style="color: red"
-          *ngIf="signupForm.get('fullName')?.errors?.['required'] && (signupForm.get('fullName')?.dirty || signupForm.get('fullName')?.touched)"
-        >
-          Este campo es obligatorio.
-        </div>
-      </label>
+        <label style="flex: 1">          Nombres y Apellidos:
+          <mat-icon matTooltip="Por favor, ingrese su nombre completo tal y como está en su DUI." matTooltipPosition="above" matTooltipHideDelay="1000">
+            info
+          </mat-icon>
+          <input type="text" formControlName="fullName"/>
+          <div style="color: red" *ngIf="signupForm.get('fullName')?.errors?.['required'] && (signupForm.get('fullName')?.dirty || signupForm.get('fullName')?.touched)">
+            Este campo es obligatorio.
+          </div>
+        </label>
 
-      <label style="flex: 1">
-        Correo Electrónico:
-        <mat-icon
-          matTooltip="Enviaremos un correo de verificacion a esta dirección."
-          matTooltipPosition="above"
-          matTooltipHideDelay="1000"
-          >info</mat-icon
-        >
-        <input type="email" formControlName="email" />
-        <div
-          style="color: red"
-          *ngIf="signupForm.get('email')?.errors?.['required'] && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)"
-        >
-          Este campo es obligatorio.
-        </div>
-        <div
-          *ngIf="signupForm.get('email')?.errors?.['email'] && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)"
-        >
-          Por favor, introduce una dirección de correo electrónico válida.
-        </div>
-      </label>
-    </div>
+        <label style="flex: 1">
+          Correo Electrónico:
+          <mat-icon matTooltip="Enviaremos un correo de verificacion a esta dirección." matTooltipPosition="above" matTooltipHideDelay="1000">
+            info
+          </mat-icon>
+          <input type="email" formControlName="email" />
+          <div style="color: red" *ngIf="signupForm.get('email')?.errors?.['required'] && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">
+            Este campo es obligatorio.
+          </div>
+          <div
+            *ngIf="signupForm.get('email')?.errors?.['email'] && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)"
+          >
+            Por favor, introduce una dirección de correo electrónico válida.
+          </div>
+        </label>
+      </div>
       <div style="display: flex">
         <label style="flex: 1">
           Contraseña:
@@ -91,8 +78,7 @@
             *ngIf="
         signupForm.get('confirmPassword')?.errors?.['mustMatch'] &&
         (signupForm.get('confirmPassword')?.dirty ||
-          signupForm.get('confirmPassword')?.touched)
-      "
+          signupForm.get('confirmPassword')?.touched)      "
           >
             Contraseña no coincide
           </div>
@@ -100,8 +86,7 @@
             style="color: red"
             *ngIf="
       signupForm.get('confirmPassword')?.errors?.['required'] &&
-      (signupForm.get('confirmPassword')?.dirty || signupForm.get('confirmPassword')?.touched)
-    "
+      (signupForm.get('confirmPassword')?.dirty || signupForm.get('confirmPassword')?.touched)    "
           >
             Este campo es obligatorio.
           </div>
@@ -123,13 +108,7 @@
           El número de teléfono debe tener exactamente 8 dígitos y no debe
           contener espacios ni otros caracteres no numéricos.
         </div>
-        <div
-          style="color: red"
-          *ngIf="
-      signupForm.get('phoneNumber')?.errors?.['required'] &&
-      (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched)
-    "
-        >
+        <div style="color: red" *ngIf=" signupForm.get('phoneNumber')?.errors?.['required'] && (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched) ">
           Este campo es obligatorio.
         </div>
       </label>
@@ -143,68 +122,32 @@
           >info</mat-icon
         >
         <input type="text" formControlName="address" />
-        <div
-          style="color: red"
-          *ngIf="
-      signupForm.get('address')?.errors?.['required'] &&
-      (signupForm.get('address')?.dirty || signupForm.get('address')?.touched)
-    "
-        >
+        <div style="color: red" *ngIf=" signupForm.get('address')?.errors?.['required'] &&(signupForm.get('address')?.dirty || signupForm.get('address')?.touched)">
           Este campo es obligatorio.
         </div>
       </label>
 
       <label>
         Foto de Perfil:
-        <input
-          type="file"
-          formControlName="profilePicture"
-          accept="image/*"
-          (change)="onFileChange($event)"
-        />
-        <div
-          style="color: red"
-          *ngIf="
-      signupForm.get('profilePicture')?.errors?.['required'] &&
-      (signupForm.get('profilePicture')?.dirty || signupForm.get('profilePicture')?.touched)
-    "
-        >
+        <input class="form-control" type="file" formControlName="profilePicture" accept="image/*" (change)="onFileChange($event)" />
+        <div style="color: red"*ngIf="signupForm.get('profilePicture')?.errors?.['required'] &&(signupForm.get('profilePicture')?.dirty || signupForm.get('profilePicture')?.touched)">
           La foto de perfil es obligatoria.
         </div>
       </label>
-      <button type="submit" [disabled]="!signupForm.valid">Registrarme</button>
+      <button type="submit" class="btn">Registrarme</button>
     </form>
   </div>
-  <div
-    style="
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-content: center;
-    "
-  >
+  <div style=" flex: 1; display: flex; justify-content: center; align-content: center;">
     <div>
       <h2 style="text-align: center">Vista Previa del Perfil</h2>
-      <div
-        class="card pointer"
-        *ngIf="
-          signupForm.get('fullName')?.value ||
-          signupForm.get('address')?.value ||
-          signupForm.get('phoneNumber')?.value ||
-          imagePreview
-        "
-      >
-        <img
-          [src]="imagePreview || 'assets/Imagenes/default.jpg'"
-          class="card-img-top"
-          alt="Vista previa de la imagen"
-        />
+      <div        class="card pointer"        *ngIf="signupForm.get('fullName')?.value ||signupForm.get('address')?.value || signupForm.get('phoneNumber')?.value || imagePreview ">
+        <img [src]="imagePreview || 'assets/Imagenes/default.jpg'" class="card-img-top" alt="Vista previa de la imagen"/>
         <div class="card-body">
-          <span
-            ><h3 class="card-text">
+          <span>
+            <h3 class="card-text">
               {{ signupForm.get("fullName")?.value }}
-            </h3></span
-          >
+            </h3>
+          </span>
           <span
             ><h4 class="card-text">
               Dirección: {{ signupForm.get("address")?.value }}

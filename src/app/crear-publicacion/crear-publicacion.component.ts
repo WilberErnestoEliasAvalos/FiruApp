@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./crear-publicacion.component.css']
 })
 export class CrearPublicacionComponent implements OnInit, OnDestroy {
+  public animalSeleccionado: string | null = null; // Aquí está la nueva propiedad
   publicacion: Publicacion = {
     descripcion: '',
     fecha_publicacion: firebase.firestore.Timestamp.now(),

@@ -1,25 +1,70 @@
 <div class="container">
-  <h2>Crear Publicación</h2>
-  <form (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" class="publicacion-form">
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" class="form-control" id="nombre" [(ngModel)]="publicacion.nombre" name="nombre">
+  <h1>Crear Publicación</h1>
+  <div *ngIf="!animalSeleccionado">
+    <h2>Eligue el tipo de mascota</h2>
+    <div class="card-container">
+
+      <div class="card" (click)="animalSeleccionado = 'Perro'">
+        <img src="assets/Imagenes/Perro.png" class="card-img-top" alt="Perro" />
+        <div class="card-body">
+          <h2 class="card-title">Perro</h2>
+        </div>
+      </div>
+
+      <div class="card" (click)="animalSeleccionado = 'Gato'">
+        <img src="assets/Imagenes/Gato2.png" class="card-img-top" alt="Gato" />
+        <div class="card-body">
+          <h2 class="card-title">Gato</h2>
+        </div>
+      </div>
+
+      <div class="card" (click)="animalSeleccionado = 'Hamster'">
+        <img src="assets/Imagenes/Hamster.png" class="card-img-top" alt="Hamster" />
+        <div class="card-body">
+          <h2 class="card-title">Hamster</h2>
+        </div>
+      </div>
+      
     </div>
+  </div>
+  <form *ngIf="animalSeleccionado === 'Perro'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" class="publicacion-form">
+    <!-- Descripción -->
     <div class="form-group">
       <label for="descripcion">Descripción</label>
-      <textarea class="form-control" id="descripcion" [(ngModel)]="publicacion.descripcion" name="descripcion" required #descripcion="ngModel"></textarea>
-      <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
-        La descripción es requerida.
-      </div>
+      <textarea id="descripcion" class="form-control" name="descripcion" ngModel required></textarea>
     </div>
+  
+    <!-- Subir fotos -->
+    <div class="form-group">
+      <label for="fotos">Subir Fotos</label>
+      <input type="file" id="fotos" class="form-control" name="fotos" ngModel accept="image/*" multiple required>
+    </div>
+  
+    <!-- Nombre de la mascota -->
+    <div class="form-group">
+      <label for="nombreMascota">Nombre de la Mascota (Opcional)</label>
+      <input type="text" id="nombreMascota" class="form-control" name="nombreMascota" ngModel>
+    </div>
+  
+    <!-- Selector de raza -->
     <div class="form-group">
       <label for="raza">Raza</label>
-      <input type="text" class="form-control" id="raza" [(ngModel)]="publicacion.raza" name="raza">
+      <select id="raza" class="form-control" name="raza" ngModel required>
+        <option value="">Selecciona una raza</option>
+        <option value="raza1">Raza 1</option>
+        <option value="raza2">Raza 2</option>
+        <!-- Agrega más opciones según sea necesario -->
+      </select>
     </div>
-    <div class="form-group">
-  <label for="fotos">Fotos</label>
-  <input type="file" class="form-control" id="fotos" (change)="onFileSelected($event)" multiple>
-</div>
-    <button type="submit" class="btn btn-primary" [disabled]="descripcion.invalid">Crear</button>
+  
+    <button type="submit" class="btn btn-primary">Crear Publicación</button>
+  </form>
+
+  <form *ngIf="animalSeleccionado === 'Gato'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" class="publicacion-form">
+    <!-- Formulario para Gato -->
+  </form>
+
+  <form *ngIf="animalSeleccionado === 'Hamster'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" class="publicacion-form">
+    <!-- Formulario para Hamster -->
   </form>
 </div>

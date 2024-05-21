@@ -7,75 +7,90 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { Subscription } from 'rxjs';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-crear-publicacion',
   templateUrl: './crear-publicacion.component.html',
   styleUrls: ['./crear-publicacion.component.css']
 })
+
 export class CrearPublicacionComponent implements OnInit, OnDestroy {
-  public animalSeleccionado: string | null = null; // Aquí está la nueva propiedad
+  public animalSeleccionado: string | null = null;
+  publicacionForm: FormGroup;
   publicacion: Publicacion = {
     descripcion: '',
     fecha_publicacion: firebase.firestore.Timestamp.now(),
     fotos: [],
-    lugar_publicacion: new firebase.firestore.GeoPoint(0, 0), // Puedes cambiar esto a los valores que necesites
+    lugar_publicacion: new firebase.firestore.GeoPoint(0, 0),
     nombre: '',
     raza: ''
   };
+  imagePreview: string | null = null;
+  selectedRaza: string = '';
+  razas = [
+    { nombre: 'Labrador Retriever', imagen: 'assets/Imagenes/Perro.png' },
+    { nombre: 'Pastor Alemán', imagen: 'assets/Imagenes/Perro.png' },
+    // Agrega aquí las demás razas
+  ];
   storage = getStorage();
-  private subscription: Subscription = Subscription.EMPTY; // Aquí está la declaración de subscription
+  private subscription: Subscription = Subscription.EMPTY;
 
-  constructor(private firestore: Firestore, private authService: AuthService, private router: Router) { }
+  constructor(private firestore: Firestore, private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
+    this.publicacionForm = this.formBuilder.group({
+      descripcion: [''],
+      fecha_publicacion: [firebase.firestore.Timestamp.now()],
+      fotos: [[]],
+      lugar_publicacion: [new firebase.firestore.GeoPoint(0, 0)],
+      nombre: [''],
+      raza: ['']
+    });
+  }
   
   ngOnInit() {
     this.subscription = this.authService.logoutSuccess.subscribe(() => {
-      this.router.navigate(['/gallery']); // Redirige al usuario a la galería
+      this.router.navigate(['/gallery']);
     });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe(); // No olvides cancelar la suscripción
+    this.subscription.unsubscribe();
   }
 
   async crearPublicacion() {
     try {
-      await addDoc(collection(this.firestore, 'publicaciones'), this.publicacion);
+      await addDoc(collection(this.firestore, 'publicaciones'), this.publicacionForm.value);
       console.log('Publicación creada exitosamente');
-      this.publicacion = {
-        descripcion: '',
-        fecha_publicacion: firebase.firestore.Timestamp.now(),
-        fotos: [],
-        lugar_publicacion: new firebase.firestore.GeoPoint(0, 0),
-        nombre: '',
-        raza: ''
-      }; // Limpiar el formulario
+      this.publicacionForm.reset();
     } catch (error) {
       console.error('Error al crear la publicación: ', error);
     }
   }
+
   onFileSelected(event: Event) {
     const files = (event.target as HTMLInputElement).files;
     if (files) {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const filePath = `publicaciones/${new Date().getTime()}_${file.name}`;
-        const storageRef = ref(this.storage, filePath);
-        const uploadTask = uploadBytesResumable(storageRef, file);
-
-        // observe percentage changes
-        uploadTask.on('state_changed', (snapshot) => {
-          const percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(percentage);
-        });
-
-        // get notified when the download URL is available
-        uploadTask.then(() => {
-          getDownloadURL(storageRef).then((url) => {
-            this.publicacion.fotos.push(url);
-          });
-        });
-      }
+      const uploadPromises = Array.from(files).map(file => this.uploadFile(file));
+      Promise.all(uploadPromises).then(urls => {
+        this.publicacion.fotos.push(...urls);
+      });
     }
+  }
+
+  private uploadFile(file: File): Promise<string> {
+    const filePath = `publicaciones/${new Date().getTime()}_${file.name}`;
+    const storageRef = ref(this.storage, filePath);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    const reader = new FileReader();
+    reader.onload = e => this.imagePreview = reader.result as string;
+    reader.readAsDataURL(file);
+
+    uploadTask.on('state_changed', (snapshot) => {
+      const percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(percentage);
+    });
+
+    return uploadTask.then(() => getDownloadURL(storageRef)).then(url => url as string);
   }
 }

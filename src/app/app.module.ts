@@ -14,6 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 // Importaciones de AngularFire
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -45,6 +47,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     MatIconModule,
     FormsModule,
     MatTooltipModule,
+    MatSelectModule,
+    MatFormFieldModule,
     AppRoutingModule,
     MatCardModule,
     ReactiveFormsModule,

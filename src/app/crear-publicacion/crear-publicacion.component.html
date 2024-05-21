@@ -3,7 +3,6 @@
   <div *ngIf="!animalSeleccionado">
     <h2>Eligue el tipo de mascota</h2>
     <div class="card-container">
-
       <div class="card" (click)="animalSeleccionado = 'Perro'">
         <img src="assets/Imagenes/Perro.png" class="card-img-top" alt="Perro" />
         <div class="card-body">
@@ -24,47 +23,73 @@
           <h2 class="card-title">Hamster</h2>
         </div>
       </div>
-      
+
     </div>
   </div>
-  <form *ngIf="animalSeleccionado === 'Perro'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" class="publicacion-form">
-    <!-- Descripción -->
-    <div class="form-group">
-      <label for="descripcion">Descripción</label>
-      <textarea id="descripcion" class="form-control" name="descripcion" ngModel required></textarea>
-    </div>
-  
-    <!-- Subir fotos -->
-    <div class="form-group">
-      <label for="fotos">Subir Fotos</label>
-      <input type="file" id="fotos" class="form-control" name="fotos" ngModel accept="image/*" multiple required>
-    </div>
-  
-    <!-- Nombre de la mascota -->
-    <div class="form-group">
-      <label for="nombreMascota">Nombre de la Mascota (Opcional)</label>
-      <input type="text" id="nombreMascota" class="form-control" name="nombreMascota" ngModel>
-    </div>
-  
-    <!-- Selector de raza -->
-    <div class="form-group">
-      <label for="raza">Raza</label>
-      <select id="raza" class="form-control" name="raza" ngModel required>
-        <option value="">Selecciona una raza</option>
-        <option value="raza1">Raza 1</option>
-        <option value="raza2">Raza 2</option>
-        <!-- Agrega más opciones según sea necesario -->
-      </select>
-    </div>
-  
-    <button type="submit" class="btn btn-primary">Crear Publicación</button>
-  </form>
+  <div class="row" *ngIf="animalSeleccionado">
+    <div class="col-md-6">
+      <!-- Formulario -->
+      <form *ngIf="animalSeleccionado === 'Perro'" (ngSubmit)="crearPublicacion()" [formGroup]="publicacionForm">
+        <div>
+          <label for="fotos">Fotos:</label>
+          <input type="file" id="fotos" name="fotos" (change)="onFileSelected($event)" multiple accept="image/*" required>
+          <p class="help-block">Sube de 1 a 5 fotos.</p>
+        </div>
+      
+        <div>
+          <label for="nombre">Nombre del perro:</label>
+          <input type="text" id="nombre" formControlName="nombre" pattern="^(\w+\s?){1,4}$" placeholder="Hasta 4 palabras">
+        </div>
+      
+        <div>
+          <label for="descripcion">Descripción:</label>
+          <textarea id="descripcion" formControlName="descripcion" required></textarea>
+        </div>
+      
+        <div class="raza-cards">
+          <div *ngFor="let raza of razas" (click)="selectedRaza = raza.nombre" [class.selected]="selectedRaza === raza.nombre">
+            <img [src]="raza.imagen" alt="{{raza.nombre}}">
+            <p>{{raza.nombre}}</p>
+          </div>
+        </div>
+      
+        <button type="submit">Crear publicación</button>
+      </form>
 
-  <form *ngIf="animalSeleccionado === 'Gato'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" class="publicacion-form">
-    <!-- Formulario para Gato -->
-  </form>
+      <form *ngIf="animalSeleccionado === 'Gato'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm">
+        <!-- Formulario para Gato -->
+      </form>
 
-  <form *ngIf="animalSeleccionado === 'Hamster'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" class="publicacion-form">
-    <!-- Formulario para Hamster -->
-  </form>
+      <form *ngIf="animalSeleccionado === 'Hamster'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm">
+        <!-- Formulario para Hamster -->
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <!-- Vista previa -->
+      <div>
+        <h2 style="text-align: center">Vista Previa de la Publicación</h2>
+        <div class="card pointer" *ngIf="publicacionForm.value.nombreMascota || publicacionForm.value.descripcion || publicacionForm.value.raza || imagePreview">
+          <img [src]="imagePreview || 'assets/Imagenes/default.jpg'" class="card-img-top" alt="Vista previa de la imagen"/>
+          <div class="card-body">
+            <span>
+              <h3 class="card-text">
+                {{ publicacionForm.value.nombreMascota }}
+              </h3>
+            </span>
+            <span>
+              <h4 class="card-text">
+                Descripción: {{ publicacionForm.value.descripcion }}
+              </h4>
+            </span>
+            <span>
+              <h5 class="card-text">
+                Raza: {{ publicacionForm.value.raza }}
+              </h5>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

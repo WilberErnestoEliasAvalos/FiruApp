@@ -2,7 +2,7 @@
   <div style="flex: 1">
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <div style="display: flex">
-        <label style="flex: 1">          Nombres y Apellidos:
+        <label style="flex: 1"> Nombres y Apellidos:
           <mat-icon matTooltip="Por favor, ingrese su nombre completo tal y como está en su DUI." matTooltipPosition="above" matTooltipHideDelay="1000">
             info
           </mat-icon>
@@ -38,13 +38,7 @@
             >info</mat-icon
           >
           <input type="password" formControlName="password" />
-          <div
-            style="color: red"
-            *ngIf="
-              signupForm.get('password')?.errors?.['required'] &&
-              (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)
-            "
-          >
+          <div style="color: red" *ngIf=" signupForm.get('password')?.errors?.['required'] && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched) " >
             Este campo es obligatorio.
           </div>
           <div

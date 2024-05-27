@@ -1,3 +1,4 @@
+// Importamos los componentes necesarios de nuestra aplicación
 import { NavbarComponent } from './navbar/navbar.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
@@ -6,6 +7,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardModalComponent } from './card-modal/card-modal.component';
 import { CrearPublicacionComponent } from './crear-publicacion/crear-publicacion.component';
+
+// Importamos los módulos necesarios de Angular
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -16,20 +19,22 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-// Importaciones de AngularFire
+
+// Importamos los módulos necesarios de AngularFire
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 
+// Importamos los módulos necesarios de nuestra aplicación
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignupComponent } from './signup/signup.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
+// Usamos el decorador NgModule para definir metadatos para el módulo
 @NgModule({
+  // Declaramos los componentes que forman parte de este módulo
   declarations: [
     AppComponent,
     NavbarComponent,
@@ -42,6 +47,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     CrearPublicacionComponent,
     SignupComponent,
   ],
+  // Importamos los módulos necesarios
   imports: [
     BrowserModule,
     MatIconModule,
@@ -65,9 +71,12 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
   ],
+  // Proveemos los servicios necesarios
   providers: [
     provideAnimationsAsync()
   ],
+  // Definimos el componente de arranque de la aplicación
   bootstrap: [AppComponent]
 })
+// Definimos la clase AppModule
 export class AppModule { }

@@ -39,26 +39,29 @@ export class CrearPublicacionComponent implements OnInit, OnDestroy {
   private subscription: Subscription = Subscription.EMPTY;
 
   // Constructor del componente, inyecta las dependencias necesarias
-  constructor(private firestore: Firestore, private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
-    // Inicializamos el formulario
-    this.publicacionForm = this.formBuilder.group({
-      descripcion: [''],
-      fecha_publicacion: [firebase.firestore.Timestamp.now()],
-      fotos: [[]],
-      lugar_publicacion: [new firebase.firestore.GeoPoint(0, 0)],
-      nombre: [''],
-      raza: ['']
-    });
-  }
+constructor(private firestore: Firestore, private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
+  // Inicializamos publicacionForm con un FormGroup vacío
+  this.publicacionForm = this.formBuilder.group({});
+}
   
-  // Método que se ejecuta cuando se inicializa el componente
-  ngOnInit() {
-    // Nos suscribimos al evento de cierre de sesión exitoso
-    this.subscription = this.authService.logoutSuccess.subscribe(() => {
-      // Cuando se cierra la sesión, redirigimos al usuario a la galería
-      this.router.navigate(['/gallery']);
-    });
-  }
+// Método que se ejecuta cuando se inicializa el componente
+ngOnInit() {
+  // Definimos los campos del formulario en ngOnInit
+  this.publicacionForm = this.formBuilder.group({
+    descripcion: [''],
+    fecha_publicacion: [firebase.firestore.Timestamp.now()],
+    fotos: [[]],
+    lugar_publicacion: [new firebase.firestore.GeoPoint(0, 0)],
+    nombre: [''],
+    raza: ['']
+  });
+
+  // Nos suscribimos al evento de cierre de sesión exitoso
+  this.subscription = this.authService.logoutSuccess.subscribe(() => {
+    // Cuando se cierra la sesión, redirigimos al usuario a la galería
+    this.router.navigate(['/gallery']);
+  });
+}
 
   // Método que se ejecuta cuando se destruye el componente
   ngOnDestroy() {
@@ -88,6 +91,8 @@ export class CrearPublicacionComponent implements OnInit, OnDestroy {
       Promise.all(uploadPromises).then(urls => {
         // Añadimos las URLs de las imágenes a la publicación
         this.publicacion.fotos.push(...urls);
+      }).catch(error => {
+        console.error('Error al subir los archivos: ', error);
       });
     }
   }

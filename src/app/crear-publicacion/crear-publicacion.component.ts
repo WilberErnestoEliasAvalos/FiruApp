@@ -1,14 +1,16 @@
 // Importamos las dependencias necesarias
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
-import { Publicacion } from '../publicacion.model';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { addDoc, collection, Firestore, GeoPoint, Timestamp } from '@angular/fire/firestore';
+import { Publicacion } from '../publicacion.model';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { Subscription } from 'rxjs';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { getAuth } from 'firebase/auth';
+import { v4 as uuidv4 } from 'uuid';
 
 // Decorador de Componente, define metadatos para el componente
 @Component({
@@ -17,16 +19,18 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./crear-publicacion.component.css'] // Rutas a los archivos de estilos CSS
 })
 export class CrearPublicacionComponent implements OnInit, OnDestroy {
-  // Definimos las propiedades del componente
   public animalSeleccionado: string | null = null;
   publicacionForm: FormGroup;
   publicacion: Publicacion = {
+    id: uuidv4(), // Genera un ID único para la nueva publicación
     descripcion: '',
-    fecha_publicacion: firebase.firestore.Timestamp.now(),
+    fecha_publicacion: Timestamp.now(),
     fotos: [],
-    lugar_publicacion: new firebase.firestore.GeoPoint(0, 0),
+    lugar_publicacion: new GeoPoint(0, 0),
     nombre: '',
-    raza: ''
+    raza: '',
+    userId: '', // Asegúrate de establecer esto al UID del usuario autenticado
+    tipo_mascota: '' // Asegúrate de establecer esto al tipo de mascota seleccionado
   };
   imagePreview: string | null = null;
   selectedRaza: string = '';
@@ -36,44 +40,50 @@ export class CrearPublicacionComponent implements OnInit, OnDestroy {
 
   // Constructor del componente, inyecta las dependencias necesarias
   constructor(private firestore: Firestore, private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
-    // Inicializamos publicacionForm con un FormGroup vacío
     this.publicacionForm = this.formBuilder.group({});
   }
   
   // Método que se ejecuta cuando se inicializa el componente
   ngOnInit() {
-    // Definimos los campos del formulario en ngOnInit
     this.publicacionForm = this.formBuilder.group({
       fotos: ['', Validators.required],
       tieneNombre: [true],
       nombre: ['', [Validators.required, Validators.pattern('^(\w+\s?){1,4}$')]],
       descripcion: ['', Validators.required],
-      raza: ['']
+      raza: [''],
+      tipo_mascota: ['', Validators.required] // Añadido el campo tipo_mascota
     });
 
   // Nos suscribimos al evento de cierre de sesión exitoso
   this.subscription = this.authService.logoutSuccess.subscribe(() => {
-    // Cuando se cierra la sesión, redirigimos al usuario a la galería
     this.router.navigate(['/gallery']);
   });
 }
 
   // Método que se ejecuta cuando se destruye el componente
   ngOnDestroy() {
-    // Nos desuscribimos del evento de cierre de sesión exitoso
     this.subscription.unsubscribe();
   }
 
   // Método para crear una nueva publicación
   async crearPublicacion() {
-    try {
-      // Añadimos la publicación a la colección de publicaciones en Firestore
-      await addDoc(collection(this.firestore, 'publicaciones'), this.publicacionForm.value);
-      console.log('Publicación creada exitosamente');
-      // Reseteamos el formulario
-      this.publicacionForm.reset();
-    } catch (error) {
-      console.error('Error al crear la publicación: ', error);
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+    if (user) {
+      try {
+        await addDoc(collection(this.firestore, 'publicaciones'), {
+          ...this.publicacionForm.value,
+          userId: user.uid, // Aquí obtenemos el UID del usuario autenticado
+          fecha_publicacion: Timestamp.now(),
+        });
+        console.log('Publicación creada exitosamente');
+        this.publicacionForm.reset();
+      } catch (error) {
+        console.error('Error al crear la publicación: ', error);
+      }
+    } else {
+      console.error('No user is signed in.');
     }
   }
 
@@ -81,10 +91,8 @@ export class CrearPublicacionComponent implements OnInit, OnDestroy {
   onFileSelected(event: Event) {
     const files = (event.target as HTMLInputElement).files;
     if (files) {
-      // Subimos cada archivo seleccionado
       const uploadPromises = Array.from(files).map(file => this.uploadFile(file));
       Promise.all(uploadPromises).then(urls => {
-        // Añadimos las URLs de las imágenes a la publicación
         this.publicacion.fotos.push(...urls);
       }).catch(error => {
         console.error('Error al subir los archivos: ', error);
@@ -98,12 +106,10 @@ export class CrearPublicacionComponent implements OnInit, OnDestroy {
     const storageRef = ref(this.storage, filePath);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // Leemos el archivo como URL de datos para mostrar una vista previa de la imagen
     const reader = new FileReader();
     reader.onload = e => this.imagePreview = reader.result as string;
     reader.readAsDataURL(file);
 
-    // Mostramos el progreso de la subida en la consola
     uploadTask.on('state_changed', (snapshot) => {
       const percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log(percentage);
@@ -112,11 +118,16 @@ export class CrearPublicacionComponent implements OnInit, OnDestroy {
     // Devolvemos una promesa que se resuelve con la URL de descarga del archivo
     return uploadTask.then(() => getDownloadURL(storageRef)).then(url => url as string);
   }
-  toggleNombre(event): void {
-    if (!event.target.checked) {
-      this.publicacionForm.get('nombre').setValue('Sin Nombre');
-    } else {
-      this.publicacionForm.get('nombre').reset();
+
+  toggleNombre(event: Event): void {
+    let nombreControl = this.publicacionForm.get('nombre');
+    if (nombreControl) {
+      if (!(event.target as HTMLInputElement).checked) {
+        nombreControl.setValue('Sin Nombre');
+        nombreControl.disable();
+      } else {
+        nombreControl.enable();
+      }
     }
   }
 }

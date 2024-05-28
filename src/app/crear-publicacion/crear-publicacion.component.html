@@ -1,106 +1,109 @@
 <div class="container">
   <h1>Crear Publicación</h1>
   <div *ngIf="!animalSeleccionado">
-    <h2>Eligue el tipo de mascota</h2>
+    <h2 style="text-align: center;">Eligue el tipo de mascota</h2>
     <div class="card-container">
       <div class="card" (click)="animalSeleccionado = 'Perro'">
         <img src="assets/Imagenes/Perro.png" class="card-img-top" alt="Perro" />
         <div class="card-body">
-          <h2 class="card-title">Perro</h2>
+          <h2 style="text-align: center;" class="card-title">Perro</h2>
         </div>
       </div>
 
       <div class="card" (click)="animalSeleccionado = 'Gato'">
         <img src="assets/Imagenes/Gato2.png" class="card-img-top" alt="Gato" />
         <div class="card-body">
-          <h2 class="card-title">Gato</h2>
+          <h2 style="text-align: center;" class="card-title">Gato</h2>
         </div>
       </div>
 
       <div class="card" (click)="animalSeleccionado = 'Hamster'">
-        <img src="assets/Imagenes/Hamster.png" class="card-img-top" alt="Hamster" />
+        <img
+          src="assets/Imagenes/Hamster.png"
+          class="card-img-top"
+          alt="Hamster"
+        />
         <div class="card-body">
-          <h2 class="card-title">Hamster</h2>
+          <h2 style="text-align: center;" class="card-title">Hamster</h2>
         </div>
       </div>
-
     </div>
   </div>
   <div class="row" *ngIf="animalSeleccionado">
-    <div class="col-md-6">
-      <!-- Formulario -->
-      <form *ngIf="animalSeleccionado === 'Perro'" (ngSubmit)="crearPublicacion()" [formGroup]="publicacionForm">
-        <div>
-          <label for="fotos">Fotos:</label>
-          <input type="file" id="fotos" name="fotos" (change)="onFileSelected($event)" multiple accept="image/*" required>
-          <p class="help-block">Sube de 1 a 5 fotos.</p>
-        </div>
-      
-        <div>
-          <label for="nombre">¿La mascota tiene nombre?</label>
-          <input type="checkbox" id="tieneNombre" formControlName="tieneNombre" (change)="toggleNombre($event)">
-        </div>
-      
-        <div *ngIf="publicacionForm.get('tieneNombre').value">
-          <label for="nombre">Nombre del perro:</label>
-          <input type="text" id="nombre" formControlName="nombre" pattern="^(\w+\s?){1,4}$" placeholder="Hasta 4 palabras" required>
-          <div *ngIf="publicacionForm.get('nombre').errors?.required && publicacionForm.get('nombre').touched">
-            El nombre es requerido.
+    <div style="display: flex; width: 100%">
+      <div style="flex: 1">
+        <!-- Formulario -->
+        <form *ngIf="animalSeleccionado === 'Perro'" (ngSubmit)="crearPublicacion()" [formGroup]="publicacionForm">
+          <div>
+            <label for="fotos" style="font-weight: bold;">Fotos:</label>
+            <input type="file" id="fotos" name="fotos" (change)="onFileSelected($event)" multiple accept="image/*" required />
+            <p class="help-block">Sube de 1 a 5 fotos.</p>
           </div>
-        </div>
-      
-        <div>
-          <label for="descripcion">Descripción:</label>
-          <textarea id="descripcion" formControlName="descripcion" required></textarea>
-          <div *ngIf="publicacionForm.get('descripcion').errors?.required && publicacionForm.get('descripcion').touched">
-            La descripción es requerida.
+          <label class="form-check-label" for="tieneNombre">¿La mascota tiene nombre?</label>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="tieneNombre" formControlName="tieneNombre" (change)="toggleNombre($event)">
           </div>
-        </div>
-      
-        <div class="raza-select">
-          <label for="raza">Raza:</label>
-          <select id="raza" [(ngModel)]="selectedRaza" required>
-            <option *ngFor="let raza of razas" [value]="raza">{{raza}}</option>
-          </select>
-        </div>
-      
-        <button type="submit" [disabled]="publicacionForm.invalid">Crear publicación</button>
-      </form>
 
-      <form *ngIf="animalSeleccionado === 'Gato'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm">
-        <!-- Formulario para Gato -->
-      </form>
-
-      <form *ngIf="animalSeleccionado === 'Hamster'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm">
-        <!-- Formulario para Hamster -->
-      </form>
-    </div>
-
-    <div class="col-md-6">
-      <!-- Vista previa -->
-      <div>
-        <h2 style="text-align: center">Vista Previa de la Publicación</h2>
-        <div class="card pointer" *ngIf="publicacionForm.value.nombreMascota || publicacionForm.value.descripcion || publicacionForm.value.raza || imagePreview">
-          <img [src]="imagePreview || 'assets/Imagenes/default.jpg'" class="card-img-top" alt="Vista previa de la imagen"/>
-          <div class="card-body">
-            <span>
-              <h3 class="card-text">
-                {{ publicacionForm.value.nombreMascota }}
-              </h3>
-            </span>
-            <span>
-              <h4 class="card-text">
-                Descripción: {{ publicacionForm.value.descripcion }}
-              </h4>
-            </span>
-            <span>
-              <h5 class="card-text">
-                Raza: {{ publicacionForm.value.raza }}
-              </h5>
-            </span>
+          <div *ngIf="publicacionForm.get('tieneNombre')?.value">
+            <label for="nombre" style="font-weight: bold;">Nombre del perro:</label>
+            <input type="text" id="nombre" formControlName="nombre" pattern="^(\w+\s?){1,4}$" placeholder="Hasta 4 palabras" required />
+            <div *ngIf="publicacionForm.get('nombre')?.errors?.['required'] && publicacionForm.get('nombre')?.touched" >
+              El nombre es requerido.
+            </div>
           </div>
-        </div>
+
+          <div>
+            <label for="descripcion" style="font-weight: bold;">Descripción:</label>
+            <textarea id="descripcion" formControlName="descripcion" required ></textarea>
+            <div *ngIf="publicacionForm.get('descripcion')?.errors?.['required'] && publicacionForm.get('descripcion')?.touched">
+              La descripción es requerida.
+            </div>
+          </div>
+
+          <div class="raza-select">
+            <label for="raza" style="font-weight: bold;">Raza:</label>
+            <select id="raza" [(ngModel)]="selectedRaza" required>
+              <option *ngFor="let raza of razas" [value]="raza">
+                {{ raza }}
+              </option>
+            </select>
+          </div>
+
+          <button type="submit" [disabled]="publicacionForm.invalid">
+            Crear publicación
+          </button>
+        </form>
+
+        <form *ngIf="animalSeleccionado === 'Gato'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" >
+          <!-- Formulario para Gato -->
+        </form>
+
+        <form *ngIf="animalSeleccionado === 'Hamster'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm" >
+          <!-- Formulario para Hamster -->
+        </form>
       </div>
+      <div style=" flex: 1; display: flex; justify-content: center; align-content: center;">
+        <div>
+          <h2 style="text-align: center;">Vista Previa de la Publicación</h2>
+          <div class="card pointer" *ngIf=" publicacionForm.value.nombreMascota || publicacionForm.value.descripcion || publicacionForm.value.raza || imagePreview " >
+            <img [src]="imagePreview || 'assets/Imagenes/default.jpg'" class="card-img-top" alt="Vista previa de la imagen" />
+            <div class="card-body">
+              <span>
+                <h3 class="card-text">
+                  {{ publicacionForm.value.nombre }}
+                </h3>
+              </span>
+              <span>
+                <h4 class="card-text">
+                  Descripción: {{ publicacionForm.value.descripcion }}
+                </h4>
+              </span>
+              <span>
+                <h5 class="card-text">Raza: {{ publicacionForm.value.raza }}</h5>
+              </span>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>

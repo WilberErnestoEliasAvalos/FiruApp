@@ -1,6 +1,6 @@
 // Importamos los módulos necesarios de Angular y Firebase
 import { Injectable } from '@angular/core';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore, Timestamp, collection, addDoc, setDoc, updateDoc, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import { Publicacion } from './publicacion.model';
 
@@ -11,9 +11,14 @@ import { Publicacion } from './publicacion.model';
 })
 export class PublicacionesService {
   private firestore;
-  // Inyectamos Firestore en el constructor
+
   constructor() {
-    const app = initializeApp({ /* your config */ });
+    let app;
+    if (!getApps().length) {
+      app = initializeApp({ /* your config */ });
+    } else {
+      app = getApp(); // si ya inicializamos la app, usamos esa instancia
+    }
     this.firestore = getFirestore(app);
   }
 

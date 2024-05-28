@@ -1,21 +1,13 @@
 .container {
-  max-width: 90vw; /* Ajusta este valor según tus necesidades */
+  max-width: 90vw;
   margin: 0 auto;
   padding: 0px;
   border: 1px solid #dddddd00;
   border-radius: 10px;
 }
 
-h2 {
-  text-align: center;
-}
-
 .form-group {
   margin-bottom: 20px;
-}
-
-label {
-  font-weight: bold;
 }
 
 .form-control {
@@ -74,6 +66,55 @@ button:hover {
   flex-direction: column;
   align-items: center;
   width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+}
+form {
+  background-color: #ffe4c4; /* Blanco hueso para el fondo del formulario */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1%;
+}
+
+label {
+  margin: 10px 0 5px 0;
+}
+
+input[type="file"],
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  border: 1px solid #d2b48c; /* Café claro para el borde del input */
+  border-radius: 5px;
+  background-color: transparent;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.raza-select {
+  margin: 10px 0;
+}
+
+button {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 @media (min-width: 768px) {

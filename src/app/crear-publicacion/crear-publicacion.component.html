@@ -37,23 +37,34 @@
         </div>
       
         <div>
+          <label for="nombre">¿La mascota tiene nombre?</label>
+          <input type="checkbox" id="tieneNombre" formControlName="tieneNombre" (change)="toggleNombre($event)">
+        </div>
+      
+        <div *ngIf="publicacionForm.get('tieneNombre').value">
           <label for="nombre">Nombre del perro:</label>
-          <input type="text" id="nombre" formControlName="nombre" pattern="^(\w+\s?){1,4}$" placeholder="Hasta 4 palabras">
+          <input type="text" id="nombre" formControlName="nombre" pattern="^(\w+\s?){1,4}$" placeholder="Hasta 4 palabras" required>
+          <div *ngIf="publicacionForm.get('nombre').errors?.required && publicacionForm.get('nombre').touched">
+            El nombre es requerido.
+          </div>
         </div>
       
         <div>
           <label for="descripcion">Descripción:</label>
           <textarea id="descripcion" formControlName="descripcion" required></textarea>
-        </div>
-      
-        <div class="raza-cards">
-          <div *ngFor="let raza of razas" (click)="selectedRaza = raza.nombre" [class.selected]="selectedRaza === raza.nombre">
-            <img [src]="raza.imagen" alt="{{raza.nombre}}">
-            <p>{{raza.nombre}}</p>
+          <div *ngIf="publicacionForm.get('descripcion').errors?.required && publicacionForm.get('descripcion').touched">
+            La descripción es requerida.
           </div>
         </div>
       
-        <button type="submit">Crear publicación</button>
+        <div class="raza-select">
+          <label for="raza">Raza:</label>
+          <select id="raza" [(ngModel)]="selectedRaza" required>
+            <option *ngFor="let raza of razas" [value]="raza">{{raza}}</option>
+          </select>
+        </div>
+      
+        <button type="submit" [disabled]="publicacionForm.invalid">Crear publicación</button>
       </form>
 
       <form *ngIf="animalSeleccionado === 'Gato'" (ngSubmit)="crearPublicacion()" #publicacionForm="ngForm">

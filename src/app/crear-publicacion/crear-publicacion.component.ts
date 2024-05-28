@@ -30,31 +30,26 @@ export class CrearPublicacionComponent implements OnInit, OnDestroy {
   };
   imagePreview: string | null = null;
   selectedRaza: string = '';
-  razas = [
-    { nombre: 'Labrador Retriever', imagen: 'assets/Imagenes/Perro.png' },
-    { nombre: 'Pastor Alemán', imagen: 'assets/Imagenes/Perro.png' },
-    // Agrega aquí las demás razas
-  ];
+  razas = ['Basset Hound', 'Chihuahua', 'Pitbull', 'Gran Danes', 'Maltipoo', 'Criollo, Mestizo o Aguacatero'];
   storage = getStorage();
   private subscription: Subscription = Subscription.EMPTY;
 
   // Constructor del componente, inyecta las dependencias necesarias
-constructor(private firestore: Firestore, private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
-  // Inicializamos publicacionForm con un FormGroup vacío
-  this.publicacionForm = this.formBuilder.group({});
-}
+  constructor(private firestore: Firestore, private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
+    // Inicializamos publicacionForm con un FormGroup vacío
+    this.publicacionForm = this.formBuilder.group({});
+  }
   
-// Método que se ejecuta cuando se inicializa el componente
-ngOnInit() {
-  // Definimos los campos del formulario en ngOnInit
-  this.publicacionForm = this.formBuilder.group({
-    descripcion: [''],
-    fecha_publicacion: [firebase.firestore.Timestamp.now()],
-    fotos: [[]],
-    lugar_publicacion: [new firebase.firestore.GeoPoint(0, 0)],
-    nombre: [''],
-    raza: ['']
-  });
+  // Método que se ejecuta cuando se inicializa el componente
+  ngOnInit() {
+    // Definimos los campos del formulario en ngOnInit
+    this.publicacionForm = this.formBuilder.group({
+      fotos: ['', Validators.required],
+      tieneNombre: [true],
+      nombre: ['', [Validators.required, Validators.pattern('^(\w+\s?){1,4}$')]],
+      descripcion: ['', Validators.required],
+      raza: ['']
+    });
 
   // Nos suscribimos al evento de cierre de sesión exitoso
   this.subscription = this.authService.logoutSuccess.subscribe(() => {
@@ -116,5 +111,12 @@ ngOnInit() {
 
     // Devolvemos una promesa que se resuelve con la URL de descarga del archivo
     return uploadTask.then(() => getDownloadURL(storageRef)).then(url => url as string);
+  }
+  toggleNombre(event): void {
+    if (!event.target.checked) {
+      this.publicacionForm.get('nombre').setValue('Sin Nombre');
+    } else {
+      this.publicacionForm.get('nombre').reset();
+    }
   }
 }

@@ -1,13 +1,13 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+import { GeoPoint, Timestamp } from 'firebase/firestore';
 
 export interface Publicacion {
-  id?: string; // Agrega esta línea
+  id: string;
   descripcion: string;
-  fecha_publicacion: firebase.firestore.Timestamp; // Utiliza el tipo Timestamp de Firebase
-  fotos: string[]; // Array de cadenas para las URLs de las fotos
-  lugar_publicacion: firebase.firestore.GeoPoint; // Utiliza el tipo GeoPoint de Firebase
-  nombre?: string; // Campo opcional, ya que puede no haber un nombre
-  raza?: string; // Campo opcional, ya que puede no haber una raza
-  userId?: string;
+  fecha_publicacion: Timestamp;
+  fotos: string[];
+  lugar_publicacion: GeoPoint;
+  nombre: string;
+  raza: string;
+  userId: string;
+  tipo_mascota: string;
 }

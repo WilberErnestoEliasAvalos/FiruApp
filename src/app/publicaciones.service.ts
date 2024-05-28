@@ -1,16 +1,21 @@
 // Importamos los módulos necesarios de Angular y Firebase
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, setDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, DocumentData } from '@angular/fire/firestore';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, Timestamp, collection, addDoc, setDoc, updateDoc, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import { Publicacion } from './publicacion.model';
+
 
 // Usamos el decorador Injectable para definir metadatos para el servicio
 @Injectable({
   providedIn: 'root' // Este servicio se proporciona en el nivel de raíz de la aplicación
 })
 export class PublicacionesService {
-
+  private firestore;
   // Inyectamos Firestore en el constructor
-  constructor(private firestore: Firestore) { }
+  constructor() {
+    const app = initializeApp({ /* your config */ });
+    this.firestore = getFirestore(app);
+  }
 
   // Método para obtener todas las publicaciones
   async getPublicaciones() {
@@ -32,13 +37,19 @@ export class PublicacionesService {
 
   // Método para crear una nueva publicación
   async crearPublicacion(publicacion: Publicacion) {
-    // Creamos un documento con un ID aleatorio en la colección 'publicaciones'
-    const documentRef = doc(collection(this.firestore, 'publicaciones'));
-    // Creamos el ID de la publicación con el formato requerido
-    const pubId = `pub_${documentRef.id}`;
-    // Añadimos el ID de la publicación al documento y lo guardamos en Firestore
-    await setDoc(documentRef, { ...publicacion, id: pubId });
-  }
+  // Creamos un documento con un ID aleatorio en la colección 'publicaciones'
+  const documentRef = doc(collection(this.firestore, 'publicaciones'));
+  // Creamos el ID de la publicación con el formato requerido
+  const pubId = `pub_${documentRef.id}`;
+  // Añadimos el ID de la publicación al documento y lo guardamos en Firestore
+  await setDoc(documentRef, { 
+    ...publicacion, 
+    id: pubId, 
+    fecha_publicacion: Timestamp.now(),
+    tipo_mascota: publicacion.tipo_mascota,
+    estado: 'Visible'
+  });
+}
 
   // Método para actualizar una publicación existente
   async actualizarPublicacion(id: string, datos: any) {
